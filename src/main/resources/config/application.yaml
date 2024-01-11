@@ -1,0 +1,73 @@
+##########################################################################
+##                  Application Settings
+## https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
+##########################################################################
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+    min-response-size: 2048
+  tomcat:
+    max-swallow-size: 10MB
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  # 기본 설정 외 yml 파일 등록
+  #  config:
+  #    import: *.yml
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-bean-definition-overriding: true
+  # [공통] 파일 업로드 관련 설정
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1MB
+      max-request-size: 5MB
+  # [공통] 트랜잭션 설정
+  transaction:
+    default-timeout: 10000
+  # [공통] JPA 설정
+  jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        type: WARN
+        show_sql: false
+        format_sql: false
+        use_sql_comment: false
+        order_inserts: true
+        order_updates: true
+        enable_lazy_load_no_trans: true
+        jdbc:
+          batch_size: 100
+    show-sql: false
+    generate-ddl: false
+    open-in-view: true
+  # [공통] data 설정
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        # pageable의 page의 기본 값은 0, true로 지정 시 기본 값 1로 변경
+        one-indexed-parameters: true
+  # [공통] devtools 설정
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+
+##########################################################################
+##                  Site Configurations
+##########################################################################
+
