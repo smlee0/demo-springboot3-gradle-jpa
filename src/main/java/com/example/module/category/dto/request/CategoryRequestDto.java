@@ -1,4 +1,4 @@
-package com.example.module.category.dto;
+package com.example.module.category.dto.request;
 
 import com.example.entity.Category;
 
@@ -16,7 +16,7 @@ public class CategoryRequestDto {
 	private Long id;
 	private String name;
 	private String code;
-	private int sortNo;
+	private Integer sortNo;
 
 	/**
 	 * DTO -> Entity 변환
@@ -29,21 +29,6 @@ public class CategoryRequestDto {
 			.name(name)
 			.code(code)
 			.sortNo(sortNo)
-			.build();
-	}
-
-	/**
-	 * Entity -> DTO 변환
-	 *
-	 * @param category
-	 * @return
-	 */
-	public CategoryRequestDto toDto(Category category) {
-		return CategoryRequestDto.builder()
-			.id(category.getId())
-			.name(category.getName())
-			.code(category.getCode())
-			.sortNo(category.getSortNo())
 			.build();
 	}
 

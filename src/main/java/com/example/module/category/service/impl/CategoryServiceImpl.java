@@ -2,10 +2,9 @@ package com.example.module.category.service.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.example.entity.Category;
-import com.example.module.category.dto.CategoryRequestDto;
+import com.example.library.annotation.TransactionalService;
+import com.example.module.category.dto.request.CategoryRequestDto;
 import com.example.module.category.repository.CategoryRepository;
 import com.example.module.category.service.CategoryService;
 
@@ -18,14 +17,14 @@ import lombok.extern.slf4j.Slf4j;
  * @author LEESEMIN
  */
 @Slf4j
-@Service
 @RequiredArgsConstructor
+@TransactionalService
 public class CategoryServiceImpl implements CategoryService {
 
 	/**
 	 * 카테고리 레포지토리
 	 */
-	private static CategoryRepository categoryRepository;
+	private final CategoryRepository categoryRepository;
 
 	/**
 	 * 카테고리 목록 호출
@@ -35,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 	 */
 	@Override
 	public List<Category> selectCategoryList(CategoryRequestDto requestDto) {
+		// .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
 		return categoryRepository.findAll();
 	}
 }

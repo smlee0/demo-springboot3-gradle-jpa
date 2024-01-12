@@ -3,7 +3,7 @@ package com.example.module.category.service;
 import java.util.List;
 
 import com.example.entity.Category;
-import com.example.module.category.dto.CategoryRequestDto;
+import com.example.module.category.dto.request.CategoryRequestDto;
 
 /**
  * 카테고리 서비스

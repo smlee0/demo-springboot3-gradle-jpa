@@ -46,7 +46,7 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
     #    org.hibernate.type.descriptor.sql: trace
-    com.g99: debug
+    com.example: debug
 
 
 ##########################################################################

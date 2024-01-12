@@ -1,5 +1,6 @@
 package com.example.module.category.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Category;
 import com.example.library.common.CommonResponse;
-import com.example.module.category.dto.CategoryRequestDto;
+import com.example.module.category.dto.request.CategoryRequestDto;
 import com.example.module.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ import lombok.extern.slf4j.Slf4j;
  * @author LEESEMIN
  */
 @Slf4j
-@RestController
 @RequiredArgsConstructor
+@RestController
 public class CategoryController {
 
 	/**
@@ -41,9 +42,12 @@ public class CategoryController {
 	 */
 	@GetMapping(LIST_URL)
 	public ResponseEntity<CommonResponse> categoryList(CategoryRequestDto requestDto) {
+		HashMap<String, Object> map = new HashMap<>();
 		List<Category> categoryList = categoryService.selectCategoryList(requestDto);
 		log.debug(">>> categoryList: {}", categoryList);
 
-		return ResponseEntity.ok().body(CommonResponse.builder().build());
+		map.put("categoryList", categoryList);
+
+		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
 	}
 }
