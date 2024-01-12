@@ -3,20 +3,21 @@ package com.example.module.category.dto.request;
 import com.example.entity.Category;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 카테고리 요청 DTO
  *
  * @author LEESEMIN
  */
-@Data
+@Getter
+@Setter
 @Builder
 public class CategoryRequestDto {
 	private Long id;
 	private String name;
 	private String code;
-	private Integer sortNo;
 
 	/**
 	 * DTO -> Entity 변환
@@ -25,10 +26,9 @@ public class CategoryRequestDto {
 	 */
 	public Category toEntity() {
 		return Category.builder()
-			.id(id)
-			.name(name)
-			.code(code)
-			.sortNo(sortNo)
+			.id(this.id)
+			.name(this.name)
+			.code(this.code)
 			.build();
 	}
 

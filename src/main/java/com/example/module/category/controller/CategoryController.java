@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.entity.Category;
 import com.example.library.common.CommonResponse;
 import com.example.module.category.dto.request.CategoryRequestDto;
+import com.example.module.category.dto.response.CategoryResponseDto;
 import com.example.module.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,7 @@ public class CategoryController {
 		List<Category> categoryList = categoryService.selectCategoryList(requestDto);
 		log.debug(">>> categoryList: {}", categoryList);
 
-		map.put("categoryList", categoryList);
+		map.put("categoryList", CategoryResponseDto.of(categoryList));
 
 		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
 	}

@@ -35,6 +35,22 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> selectCategoryList(CategoryRequestDto requestDto) {
 		// .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
+
 		return categoryRepository.findAll();
+	}
+
+	@Override
+	public void insertCategory(CategoryRequestDto requestDto) {
+
+	}
+
+	@Override
+	public void updateCategory(CategoryRequestDto requestDto) {
+
+	}
+
+	@Override
+	public void deleteCategory(CategoryRequestDto requestDto) {
+
 	}
 }

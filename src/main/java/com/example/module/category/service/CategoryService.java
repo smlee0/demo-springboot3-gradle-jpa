@@ -19,4 +19,28 @@ public interface CategoryService {
 	 * @return
 	 */
 	List<Category> selectCategoryList(CategoryRequestDto requestDto);
+
+	/**
+	 * 카테고리 등록
+	 *
+	 * @param requestDto
+	 * @return
+	 */
+	void insertCategory(CategoryRequestDto requestDto);
+
+	/**
+	 * 카테고리 수정
+	 *
+	 * @param requestDto
+	 * @return
+	 */
+	void updateCategory(CategoryRequestDto requestDto);
+
+	/**
+	 * 카테고리 삭제
+	 *
+	 * @param requestDto
+	 * @return
+	 */
+	void deleteCategory(CategoryRequestDto requestDto);
 }
