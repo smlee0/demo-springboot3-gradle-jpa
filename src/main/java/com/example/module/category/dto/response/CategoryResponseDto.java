@@ -22,7 +22,7 @@ public class CategoryResponseDto {
 	private Long id;
 	private String name;
 	private String code;
-	private Integer sortNo;
+	// private Integer sortNo;
 
 	/**
 	 * Entity -> DTO 변환
