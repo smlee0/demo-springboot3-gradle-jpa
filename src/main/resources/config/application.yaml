@@ -41,17 +41,17 @@ spring:
     properties:
       hibernate:
         type: WARN
-        show_sql: false
-        format_sql: false
-        use_sql_comment: false
+#        show_sql: false
+#        format_sql: false
+#        use_sql_comment: false
         order_inserts: true
         order_updates: true
         enable_lazy_load_no_trans: true
         jdbc:
           batch_size: 100
-    show-sql: false
-    generate-ddl: false
-    open-in-view: true
+#    show-sql: true
+#    generate-ddl: false
+#    open-in-view: true
   # [공통] data 설정
   data:
     web:
@@ -66,6 +66,11 @@ spring:
     restart:
       enabled: true
 
+#P6spy
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false
 
 ##########################################################################
 ##                  Site Configurations
