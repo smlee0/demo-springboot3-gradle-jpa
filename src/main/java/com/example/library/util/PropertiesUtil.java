@@ -23,6 +23,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 프로퍼티 유틸
+ * .properties 파일에서 불러올 때 사용 (.yaml에서는 호환되지 않음)
+ *
+ * @author LEESEMIN
+ */
 @Component
 @RequiredArgsConstructor
 public class PropertiesUtil {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Category;
 import com.example.library.common.CommonResponse;
+import com.example.library.util.PropertyUtil;
 import com.example.module.category.dto.request.CategoryRequestDto;
 import com.example.module.category.dto.response.CategoryResponseDto;
 import com.example.module.category.service.CategoryService;
@@ -33,6 +34,11 @@ public class CategoryController {
 	 * 카테고리 서비스
 	 */
 	private final CategoryService categoryService;
+	/**
+	 * TODO 프로퍼티 유틸 테스트
+	 * 프로퍼티 유틸
+	 */
+	private final PropertyUtil propertyUtil;
 
 	/**
 	 * 카테고리 메뉴 목록 URL
@@ -61,6 +67,9 @@ public class CategoryController {
 		HashMap<String, Object> map = new HashMap<>();
 		List<Category> categoryList = categoryService.selectCategoryList(requestDto);
 		log.debug(">>> categoryList: {}", categoryList);
+
+		// TODO 프로퍼티 유틸 테스트
+		log.debug(">>> Test PropertiesUtil Get: {}", propertyUtil.get("upload.base-path"));
 
 		map.put("categoryList", CategoryResponseDto.of(categoryList));
 
