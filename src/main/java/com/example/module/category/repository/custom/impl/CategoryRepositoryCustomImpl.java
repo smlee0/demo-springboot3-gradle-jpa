@@ -1,8 +1,7 @@
 package com.example.module.category.repository.custom.impl;
 
-import org.springframework.data.jpa.repository.query.JpaQueryMethodFactory;
-
 import com.example.module.category.repository.custom.CategoryRepositoryCustom;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,6 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
 
-	private final JpaQueryMethodFactory queryFactory;
+	private final JPAQueryFactory queryFactory;
 
 }
