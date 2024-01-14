@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Category;
@@ -32,9 +35,21 @@ public class CategoryController {
 	private final CategoryService categoryService;
 
 	/**
-	 * 브랜드 제품 목록 URL
+	 * 카테고리 메뉴 목록 URL
 	 */
 	public static final String LIST_URL = "/api/v1/category";
+	/**
+	 * 카테고리 메뉴 등록 URL
+	 */
+	public static final String INSERT_URL = "/api/v1/category";
+	/**
+	 * 카테고리 메뉴 수정 URL
+	 */
+	public static final String UPDATE_URL = "/api/v1/category";
+	/**
+	 * 카테고리 메뉴 수정 URL
+	 */
+	public static final String DELETE_URL = "/api/v1/category";
 
 	/**
 	 * 카테고리 메뉴 목록 호출
@@ -42,12 +57,51 @@ public class CategoryController {
 	 * @return
 	 */
 	@GetMapping(LIST_URL)
-	public ResponseEntity<CommonResponse> categoryList(CategoryRequestDto requestDto) {
+	public ResponseEntity<CommonResponse> list(CategoryRequestDto requestDto) {
 		HashMap<String, Object> map = new HashMap<>();
 		List<Category> categoryList = categoryService.selectCategoryList(requestDto);
 		log.debug(">>> categoryList: {}", categoryList);
 
 		map.put("categoryList", CategoryResponseDto.of(categoryList));
+
+		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+	}
+
+	/**
+	 * 카테고리 메뉴 등록 액션
+	 *
+	 * @return
+	 */
+	@PostMapping(INSERT_URL)
+	public ResponseEntity<CommonResponse> insert(CategoryRequestDto requestDto) {
+		HashMap<String, Object> map = new HashMap<>();
+		categoryService.insertCategory(requestDto);
+
+		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+	}
+
+	/**
+	 * 카테고리 메뉴 수정 액션
+	 *
+	 * @return
+	 */
+	@PutMapping(UPDATE_URL)
+	public ResponseEntity<CommonResponse> update(CategoryRequestDto requestDto) {
+		HashMap<String, Object> map = new HashMap<>();
+		categoryService.insertCategory(requestDto);
+
+		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+	}
+
+	/**
+	 * 카테고리 메뉴 삭제 액션
+	 *
+	 * @return
+	 */
+	@DeleteMapping(DELETE_URL)
+	public ResponseEntity<CommonResponse> delete(CategoryRequestDto requestDto) {
+		HashMap<String, Object> map = new HashMap<>();
+		categoryService.insertCategory(requestDto);
 
 		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
 	}

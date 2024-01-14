@@ -41,16 +41,16 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void insertCategory(CategoryRequestDto requestDto) {
-
+		categoryRepository.save(requestDto.toEntity());
 	}
 
 	@Override
 	public void updateCategory(CategoryRequestDto requestDto) {
-
+		categoryRepository.save(requestDto.toEntity());
 	}
 
 	@Override
 	public void deleteCategory(CategoryRequestDto requestDto) {
-
+		categoryRepository.delete(requestDto.toEntity());
 	}
 }

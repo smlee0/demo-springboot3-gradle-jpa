@@ -18,6 +18,7 @@ public class CategoryRequestDto {
 	private Long id;
 	private String name;
 	private String code;
+	private String sortNo;
 
 	/**
 	 * DTO -> Entity 변환

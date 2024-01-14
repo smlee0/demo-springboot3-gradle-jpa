@@ -1,15 +1,17 @@
 package com.example.module.category.dto.response;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 
 import com.example.entity.Category;
+import com.example.library.common.CommonFilter;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 카테고리 응답 DTO
@@ -18,19 +20,15 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CategoryResponseDto {
+@EqualsAndHashCode(callSuper = false)
+@ToString(callSuper = true)
+public class CategoryResponseDto extends CommonFilter {
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	private Long id;
 	private String name;
 	private String code;
-	// private Integer sortNo;
-
-	private LocalDateTime createDt;
-	private String createId;
-	private LocalDateTime modifyDt;
-	private String modifyId;
 
 	/**
 	 * Entity -> DTO 변환
