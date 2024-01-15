@@ -45,6 +45,9 @@ dependencies {
 //    implementation "org.hibernate:hibernate-core:6.3.1.Final"
 //    implementation "org.hibernate:hibernate-entitymanager:5.6.15.Final"
 
+    // H2 Database
+    runtimeOnly 'com.h2database:h2'
+
     // MySQL
     runtimeOnly "mysql:mysql-connector-java:8.0.33"
 
