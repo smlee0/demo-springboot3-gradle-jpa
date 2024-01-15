@@ -64,11 +64,12 @@ public class CategoryController {
 	 */
 	@GetMapping(LIST_URL)
 	public ResponseEntity<CommonResponse> list(CategoryRequestDto requestDto) {
+		//TODO CommonResponse -> 제네릭 적용 고려
 		HashMap<String, Object> map = new HashMap<>();
 		List<Category> categoryList = categoryService.selectCategoryList(requestDto);
 		log.debug(">>> categoryList: {}", categoryList);
 
-		// TODO 프로퍼티 유틸 테스트
+		//TODO 프로퍼티 유틸 테스트
 		log.debug(">>> Test PropertiesUtil Get: {}", propertyUtil.get("upload.base-path"));
 
 		map.put("categoryList", CategoryResponseDto.of(categoryList));
