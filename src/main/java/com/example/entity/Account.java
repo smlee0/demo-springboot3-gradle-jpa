@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
+import com.example.entity.common.BaseEntity;
 import com.example.library.constant.AccountRoleType;
 
 import jakarta.persistence.Column;
@@ -34,7 +35,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ACCOUNT", indexes = @Index(columnList = "email"))
-public class Account {
+public class Account extends BaseEntity {
 
 	//	@GeneratedValue(generator="system-uuid")
 	//	@GenericGenerator(name="system-uuid", strategy = "uuid")

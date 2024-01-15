@@ -13,7 +13,7 @@ spring:
 #    password:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:file:./db/testdb;AUTO_SERVER=TRUE
-#    url: jdbc:h2:tcp://localhost/~/test
+#    url: jdbc:h2:tcp://localhost/~/testdb
     username: sa
     password:
     tomcat:
@@ -78,12 +78,12 @@ cloud:
       # S3 설정 확인
       static: ap-northeast-2
     s3:
-      bucket: #fakedata
-      url: #https://{fakedata}.cloudfront.net
+      bucket: #demo-dev-bucket
+      url: #https://{puuid}.cloudfront.net
       role:
-        arn: #arn:aws:iam::428646110308:role/fakedata-dev-upload-s3-limited-role
+        arn: #arn:aws:iam::428646110308:role/demo-dev-upload-s3-limited-role
         session:
-          name: #fakedata-dev-upload-s3-limited-role
+          name: #demo-dev-upload-s3-limited-role
     stack:
       auto: false
 
