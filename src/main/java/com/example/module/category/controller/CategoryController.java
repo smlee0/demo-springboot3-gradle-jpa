@@ -1,6 +1,5 @@
 package com.example.module.category.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -11,9 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Category;
-import com.example.library.common.CommonResponse;
-import com.example.library.util.PropertyUtil;
 import com.example.module.category.dto.request.CategoryRequestDto;
+import com.example.module.category.dto.request.InsertCategoryRequestDto;
 import com.example.module.category.dto.response.CategoryResponseDto;
 import com.example.module.category.service.CategoryService;
 
@@ -29,52 +27,22 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RestController
 public class CategoryController {
-
 	/**
 	 * 카테고리 서비스
 	 */
 	private final CategoryService categoryService;
-	/**
-	 * TODO 프로퍼티 유틸 테스트
-	 * 프로퍼티 유틸
-	 */
-	private final PropertyUtil propertyUtil;
-
-	/**
-	 * 카테고리 메뉴 목록 URL
-	 */
-	public static final String LIST_URL = "/api/v1/category";
-	/**
-	 * 카테고리 메뉴 등록 URL
-	 */
-	public static final String INSERT_URL = "/api/v1/category";
-	/**
-	 * 카테고리 메뉴 수정 URL
-	 */
-	public static final String UPDATE_URL = "/api/v1/category";
-	/**
-	 * 카테고리 메뉴 수정 URL
-	 */
-	public static final String DELETE_URL = "/api/v1/category";
 
 	/**
 	 * 카테고리 메뉴 목록 호출
 	 *
 	 * @return
 	 */
-	@GetMapping(LIST_URL)
-	public ResponseEntity<CommonResponse> list(CategoryRequestDto requestDto) {
-		//TODO CommonResponse -> 제네릭 적용 고려
-		HashMap<String, Object> map = new HashMap<>();
+	@GetMapping("/api/v1/category")
+	public ResponseEntity<Object> list(CategoryRequestDto requestDto) {
 		List<Category> categoryList = categoryService.selectCategoryList(requestDto);
 		log.debug(">>> categoryList: {}", categoryList);
 
-		//TODO 프로퍼티 유틸 테스트
-		log.debug(">>> Test PropertiesUtil Get: {}", propertyUtil.get("upload.base-path"));
-
-		map.put("categoryList", CategoryResponseDto.of(categoryList));
-
-		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+		return ResponseEntity.ok().body(CategoryResponseDto.of(categoryList));
 	}
 
 	/**
@@ -82,12 +50,11 @@ public class CategoryController {
 	 *
 	 * @return
 	 */
-	@PostMapping(INSERT_URL)
-	public ResponseEntity<CommonResponse> insert(CategoryRequestDto requestDto) {
-		HashMap<String, Object> map = new HashMap<>();
+	@PostMapping("/api/v1/category")
+	public ResponseEntity<Object> insert(InsertCategoryRequestDto requestDto) {
 		categoryService.insertCategory(requestDto);
 
-		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+		return ResponseEntity.ok().build();
 	}
 
 	/**
@@ -95,12 +62,11 @@ public class CategoryController {
 	 *
 	 * @return
 	 */
-	@PutMapping(UPDATE_URL)
-	public ResponseEntity<CommonResponse> update(CategoryRequestDto requestDto) {
-		HashMap<String, Object> map = new HashMap<>();
-		categoryService.insertCategory(requestDto);
+	@PutMapping("/api/v1/category")
+	public ResponseEntity<Object> update(CategoryRequestDto requestDto) {
+		categoryService.updateCategory(requestDto);
 
-		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+		return ResponseEntity.ok().build();
 	}
 
 	/**
@@ -108,11 +74,10 @@ public class CategoryController {
 	 *
 	 * @return
 	 */
-	@DeleteMapping(DELETE_URL)
-	public ResponseEntity<CommonResponse> delete(CategoryRequestDto requestDto) {
-		HashMap<String, Object> map = new HashMap<>();
-		categoryService.insertCategory(requestDto);
+	@DeleteMapping("/api/v1/category")
+	public ResponseEntity<Object> delete(CategoryRequestDto requestDto) {
+		categoryService.deleteCategory(requestDto);
 
-		return ResponseEntity.ok().body(CommonResponse.builder().data(map).build());
+		return ResponseEntity.ok().build();
 	}
 }

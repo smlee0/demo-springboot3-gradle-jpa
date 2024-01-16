@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.entity.Category;
 import com.example.library.annotation.TransactionalService;
 import com.example.module.category.dto.request.CategoryRequestDto;
+import com.example.module.category.dto.request.InsertCategoryRequestDto;
 import com.example.module.category.repository.CategoryRepository;
 import com.example.module.category.service.CategoryService;
 
@@ -40,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void insertCategory(CategoryRequestDto requestDto) {
+	public void insertCategory(InsertCategoryRequestDto requestDto) {
 		categoryRepository.save(requestDto.toEntity());
 	}
 

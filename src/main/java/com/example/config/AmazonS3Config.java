@@ -1,6 +1,5 @@
 package com.example.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,8 +14,9 @@ import com.amazonaws.services.securitytoken.model.AssumeRoleRequest;
 import com.amazonaws.services.securitytoken.model.AssumeRoleResult;
 import com.amazonaws.services.securitytoken.model.Credentials;
 import com.example.library.constant.ProfileType;
-import com.example.library.util.PropertiesUtil;
+import com.example.library.util.PropertyUtil;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -26,37 +26,24 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class AmazonS3Config {
-
-	// @Value("${cloud.aws.credentials.access-key}")
-	// private String accessKey;
-	//
-	// @Value("${cloud.aws.credentials.secret-key}")
-	// private String secretKey;
-
-	// @Value("${cloud.role.arn}")
-	// private String roleARN;
-	//
-	// @Value("${cloud.role.session.name}")
-	// private String roleSessionName;
-	//
-	// @Value("${cloud.credentials.profile}")
-	// private String credentialsProfile;
-	//
-	@Value("${cloud.aws.region.static}")
-	private String region;
+	/**
+	 * 프로퍼티 유틸
+	 */
+	private final PropertyUtil propertyUtil;
 
 	@Bean
 	public AmazonS3Client amazonS3Client() {
 		log.info("[Bean] amazonS3");
 		String profile = System.getProperty("spring.profiles.active");
+		String roleARN = propertyUtil.get("cloud.role.arn");
+		String roleSessionName = propertyUtil.get("cloud.role.session.name");
+		String credentialsProfile = propertyUtil.get("cloud.credentials.profile");
+		String region = propertyUtil.get("cloud.aws.region.static");
 
 		// 로컬 개발 환경 설정
 		if (!profile.equals(ProfileType.LOCAL.toString())) {
-			String roleARN = PropertiesUtil.get("cloud.role.arn");
-			String roleSessionName = PropertiesUtil.get("cloud.role.session.name");
-			String credentialsProfile = PropertiesUtil.get("cloud.credentials.profile");
-
 			AWSSecurityTokenService stsClient = AWSSecurityTokenServiceClientBuilder.standard()
 				.withCredentials(new ProfileCredentialsProvider(credentialsProfile)).withRegion(region).build();
 
@@ -70,7 +57,6 @@ public class AmazonS3Config {
 
 			return (AmazonS3Client)AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
 				.withRegion(region).build();
-
 		} else {
 			return (AmazonS3Client)AmazonS3ClientBuilder.standard().withRegion(region).build();
 		}

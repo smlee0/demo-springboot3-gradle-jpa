@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.entity.Category;
 import com.example.module.category.dto.request.CategoryRequestDto;
+import com.example.module.category.dto.request.InsertCategoryRequestDto;
 
 /**
  * 카테고리 서비스
@@ -26,7 +27,7 @@ public interface CategoryService {
 	 * @param requestDto
 	 * @return
 	 */
-	void insertCategory(CategoryRequestDto requestDto);
+	void insertCategory(InsertCategoryRequestDto requestDto);
 
 	/**
 	 * 카테고리 수정
