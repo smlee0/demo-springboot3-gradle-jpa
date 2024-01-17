@@ -2,9 +2,8 @@ package com.example.module.category.service;
 
 import java.util.List;
 
-import com.example.entity.Category;
 import com.example.module.category.dto.request.CategoryRequestDto;
-import com.example.module.category.dto.request.InsertCategoryRequestDto;
+import com.example.module.category.dto.response.CategoryResponseDto;
 
 /**
  * 카테고리 서비스
@@ -19,7 +18,7 @@ public interface CategoryService {
 	 * @param requestDto
 	 * @return
 	 */
-	List<Category> selectCategoryList(CategoryRequestDto requestDto);
+	List<CategoryResponseDto> selectCategoryList(CategoryRequestDto requestDto);
 
 	/**
 	 * 카테고리 등록
@@ -27,7 +26,7 @@ public interface CategoryService {
 	 * @param requestDto
 	 * @return
 	 */
-	void insertCategory(InsertCategoryRequestDto requestDto);
+	void insertCategory(CategoryRequestDto requestDto);
 
 	/**
 	 * 카테고리 수정

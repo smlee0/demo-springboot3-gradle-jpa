@@ -14,9 +14,9 @@
 - [x] H2 Database (Latest)
 - [x] Lombok (Latest)
 - [x] AWS 2.2.6
-- [ ] MySQL 8.0.33
-- [ ] Mybatis 2.3.0
-- [x] ModelMapper 3.1.1
+- [ ] ~~MySQL 8.0.33~~
+- [ ] ~~Mybatis 2.3.0~~
+- [x] MapStruct 1.5.5
 - [x] P6spy 1.9.0
 
 

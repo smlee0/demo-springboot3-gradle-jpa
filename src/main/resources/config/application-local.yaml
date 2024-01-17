@@ -42,8 +42,8 @@ spring:
 
 # 로그 설정
 logging:
-  file:
-    name: logs/default.log
+#  file:
+#    name: logs/default.log
   #  pattern:
   #    console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
   #    file: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"

@@ -2,10 +2,10 @@ package com.example.module.category.service.impl;
 
 import java.util.List;
 
-import com.example.entity.Category;
 import com.example.library.annotation.TransactionalService;
 import com.example.module.category.dto.request.CategoryRequestDto;
-import com.example.module.category.dto.request.InsertCategoryRequestDto;
+import com.example.module.category.dto.response.CategoryResponseDto;
+import com.example.module.category.mapper.CategoryMapper;
 import com.example.module.category.repository.CategoryRepository;
 import com.example.module.category.service.CategoryService;
 
@@ -34,24 +34,41 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @return
 	 */
 	@Override
-	public List<Category> selectCategoryList(CategoryRequestDto requestDto) {
+	public List<CategoryResponseDto> selectCategoryList(CategoryRequestDto requestDto) {
 		// .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id = " + id));
-
-		return categoryRepository.findAll();
+		return CategoryMapper.INSTANCE.toList(categoryRepository.findAll());
 	}
 
+	/**
+	 * 카테고리 등록
+	 *
+	 * @param requestDto
+	 * @return
+	 */
 	@Override
-	public void insertCategory(InsertCategoryRequestDto requestDto) {
-		categoryRepository.save(requestDto.toEntity());
+	public void insertCategory(CategoryRequestDto requestDto) {
+		categoryRepository.save(CategoryMapper.INSTANCE.toEntity(requestDto));
 	}
 
+	/**
+	 * 카테고리 수정
+	 *
+	 * @param requestDto
+	 * @return
+	 */
 	@Override
 	public void updateCategory(CategoryRequestDto requestDto) {
-		categoryRepository.save(requestDto.toEntity());
+		categoryRepository.save(CategoryMapper.INSTANCE.toEntity(requestDto));
 	}
 
+	/**
+	 * 카테고리 삭제
+	 *
+	 * @param requestDto
+	 * @return
+	 */
 	@Override
 	public void deleteCategory(CategoryRequestDto requestDto) {
-		categoryRepository.delete(requestDto.toEntity());
+		categoryRepository.delete(CategoryMapper.INSTANCE.toEntity(requestDto));
 	}
 }

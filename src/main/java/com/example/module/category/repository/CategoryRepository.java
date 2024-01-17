@@ -15,4 +15,6 @@ import com.example.module.category.repository.custom.CategoryRepositoryCustom;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long>, QuerydslPredicateExecutor<Category>, CategoryRepositoryCustom {
 
+	boolean existsByName(String name);
+	
 }

@@ -1,0 +1,17 @@
+package com.example.library.annotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.springframework.validation.Validator;
+
+/**
+ * RequestBody 어노테이션 실행
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface RunBodyValidator {
+	Class<? extends Validator> value();
+}
