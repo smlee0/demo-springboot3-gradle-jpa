@@ -21,14 +21,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-// @Data
-// @Entity
-// @SuperBuilder
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // JPA에서 lazy관련 에러 날 경우 사용
-// @DynamicInsert
-// @DynamicUpdate
+/**
+ * 계정 엔티티
+ *
+ * @author LEESEMIN
+ */
 @Getter
 @Entity
 @Builder
@@ -37,8 +34,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "account", indexes = @Index(columnList = "email"))
 public class Account extends BaseEntity {
 
-	//	@GeneratedValue(generator="system-uuid")
-	//	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

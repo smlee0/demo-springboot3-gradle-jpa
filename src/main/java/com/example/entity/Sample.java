@@ -15,6 +15,20 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+// @Data
+// @Entity
+// @SuperBuilder
+// @NoArgsConstructor
+// @AllArgsConstructor
+// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // JPA에서 lazy관련 에러 날 경우 사용
+// @DynamicInsert
+// @DynamicUpdate
+
+/**
+ * 샘플 엔티티 (테스트 및 참고용)
+ *
+ * @author LEESEMIN
+ */
 @Getter
 @Entity
 @Builder
@@ -23,6 +37,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "sample")
 public class Sample extends BaseEntity {
 
+	//	@GeneratedValue(generator="system-uuid")
+	//	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", insertable = false, updatable = false)
@@ -59,6 +75,6 @@ public class Sample extends BaseEntity {
 	// @JsonIgnore
 	// @JsonManagedReference
 	// @OneToMany(mappedBy = "commonCode")
-	// private List<Category> categories;
+	// private List<Sample> categories;
 
 }

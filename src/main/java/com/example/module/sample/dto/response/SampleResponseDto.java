@@ -1,4 +1,4 @@
-package com.example.module.category.dto.response;
+package com.example.module.sample.dto.response;
 
 import com.example.library.common.CommonFilter;
 
@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 카테고리 응답 DTO
+ * 샘플 응답 DTO
  *
  * @author LEESEMIN
  */
@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-public class CategoryResponseDto extends CommonFilter {
+public class SampleResponseDto extends CommonFilter {
 
 	private Long id;
 	private String name;

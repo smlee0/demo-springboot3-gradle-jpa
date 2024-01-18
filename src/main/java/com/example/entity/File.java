@@ -15,6 +15,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 파일 엔티티
+ *
+ * @author LEESEMIN
+ */
 @Getter
 @Entity
 @Builder
