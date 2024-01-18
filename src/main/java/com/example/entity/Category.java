@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CATEGORY")
+@Table(name = "category")
 public class Category extends BaseEntity {
 
 	@Id
@@ -40,17 +40,5 @@ public class Category extends BaseEntity {
 	@Column(name = "sort_no")
 	@Comment("우선노출순번")
 	private Integer sortNo;
-
-	// @JsonBackReference
-	// @ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "common_id", insertable = false, updatable = false)
-	// @Comment("공통코드 ID")
-	// private CommonCode commonCode;
-
-	// 공통코드 연결 시
-	// @JsonIgnore
-	// @JsonManagedReference
-	// @OneToMany(mappedBy = "commonCode")
-	// private List<Category> categories;
 
 }

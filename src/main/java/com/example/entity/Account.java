@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ACCOUNT", indexes = @Index(columnList = "email"))
+@Table(name = "account", indexes = @Index(columnList = "email"))
 public class Account extends BaseEntity {
 
 	//	@GeneratedValue(generator="system-uuid")
