@@ -8,7 +8,7 @@ import com.p6spy.engine.spy.P6SpyOptions;
 import jakarta.annotation.PostConstruct;
 
 /**
- * P6spy 포맷 설정 클래스
+ * P6spy 포맷 설정
  *
  * @author LEESEMIN
  */

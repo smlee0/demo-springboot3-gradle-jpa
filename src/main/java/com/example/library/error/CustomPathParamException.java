@@ -6,6 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 커스텀 익셉션
+ *
+ * @author LEESEMIN
+ */
 @AllArgsConstructor
 @Setter
 @Getter

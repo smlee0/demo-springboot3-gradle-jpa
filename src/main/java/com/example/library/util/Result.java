@@ -10,6 +10,8 @@ import lombok.Setter;
 
 /**
  * API 수행 결과 값 리턴
+ *
+ * @author LEESEMIN
  */
 @Getter
 @Setter

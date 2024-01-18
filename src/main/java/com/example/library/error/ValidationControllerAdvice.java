@@ -18,6 +18,11 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 글로벌 예외 처리
+ *
+ * @author LESEMIN
+ */
 @Slf4j
 @ControllerAdvice
 public class ValidationControllerAdvice {
@@ -30,6 +35,7 @@ public class ValidationControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ValidationErrorDto onConstraintValidationException(ConstraintViolationException e) {
+		log.info("[Bean] ConstraintViolationException");
 		ValidationErrorDto error = new ValidationErrorDto();
 		for (ConstraintViolation violation : e.getConstraintViolations()) {
 			error.getErrors().add(
@@ -47,6 +53,7 @@ public class ValidationControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ValidationErrorDto onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+		log.info("[Bean] MethodArgumentNotValidException");
 		ValidationErrorDto error = new ValidationErrorDto();
 
 		// validator + 필드 에러
@@ -74,6 +81,7 @@ public class ValidationControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ValidationErrorDto bindValidException(BindException e) {
+		log.info("[Bean] BindException");
 		ValidationErrorDto error = new ValidationErrorDto();
 		for (ObjectError err : e.getBindingResult().getAllErrors()) {
 			error.getErrors().add(
@@ -90,10 +98,9 @@ public class ValidationControllerAdvice {
 	@ExceptionHandler(CustomPathParamException.class)
 	@ResponseBody
 	ValidationErrorDto customPathParamException(HttpServletResponse response, CustomPathParamException e) {
-
+		log.info("[Bean] CustomPathParamException");
 		ValidationErrorDto error = new ValidationErrorDto();
 		error.getErrors().add(new ErrorDto(e.getCode(), e.getMessage()));
-
 		response.setStatus(e.getHttpStatus().value());
 		if (e.getHttpStatus().equals(HttpStatus.NOT_FOUND)) {
 			return null;

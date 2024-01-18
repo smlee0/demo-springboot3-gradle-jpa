@@ -6,13 +6,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import com.example.library.constant.ProfileType;
 
 import jakarta.annotation.PostConstruct;
 
-@EnableJpaAuditing // 자동으로 생성/수정 날짜 매핑 (엔티티에 @EntityListeners(AuditingEntityListener.class) 추가)
+/**
+ * SpringBoot 애플리케이션 실행 클래스
+ *
+ * @author LEESEMIN
+ */
 @SpringBootApplication
 public class DemoApplication {
 

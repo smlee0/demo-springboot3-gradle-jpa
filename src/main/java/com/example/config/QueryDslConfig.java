@@ -9,7 +9,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 /**
- * query dsl config
+ * QueryDSL 설정
+ *
+ * @author LEESEMIN
  */
 @Configuration
 public class QueryDslConfig {

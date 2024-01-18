@@ -6,6 +6,8 @@ import lombok.Setter;
 
 /**
  * errorDto 에러 메시지 필드
+ *
+ * @author LEESEMIN
  */
 @RequiredArgsConstructor
 @Getter

@@ -25,6 +25,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * 날짜 관련 유틸
+ *
+ * @author LEESEMIN
  */
 public class DateUtil {
 	private static final Logger log = LoggerFactory.getLogger(DateUtil.class);

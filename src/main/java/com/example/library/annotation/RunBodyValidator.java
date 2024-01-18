@@ -9,6 +9,8 @@ import org.springframework.validation.Validator;
 
 /**
  * RequestBody 어노테이션 실행
+ *
+ * @author LEESEMIN
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)

@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 카테고리 등록 밸리데이터
+ *
+ * @author LEESEMIN
  */
 @Slf4j
 @RequiredArgsConstructor

@@ -9,7 +9,11 @@ import com.example.entity.Account;
 import com.example.library.security.AuditorAwareImpl;
 
 /**
- * jpa auditing config
+ * JPA 감시 설정
+ * 자동 생성/수정(날짜/사용자) 매핑 후 생성
+ * 사용법 : 엔티티에 @EntityListeners(AuditingEntityListener.class) 추가
+ *
+ * @author LEESEMIN
  */
 @Configuration
 @EnableJpaAuditing

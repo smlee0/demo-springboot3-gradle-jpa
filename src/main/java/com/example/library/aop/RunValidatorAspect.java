@@ -25,8 +25,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * RunValidatorAspect
+ * RunValidator Aspect
  * RunBodyValidator, RunPathVariableValidator 어노테이션이 붙은 validator 실행
+ *
+ * @author LEESEMIN
  */
 @Slf4j
 @Aspect

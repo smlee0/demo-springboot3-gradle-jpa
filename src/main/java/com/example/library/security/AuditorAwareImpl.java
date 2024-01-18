@@ -9,7 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.example.entity.Account;
 
 /**
- * jpa AuditorAware 구현 클래스
+ * JPA AuditorAware 구현부
+ *
+ * @author LEESEMIN
  */
 public class AuditorAwareImpl implements AuditorAware<Account> {
 	@Override

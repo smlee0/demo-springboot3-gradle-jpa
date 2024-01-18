@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * AWS S3 설정 클래스
+ * AWS S3 설정
  *
  * @author LEESEMIN
  */

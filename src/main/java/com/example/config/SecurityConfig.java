@@ -16,7 +16,7 @@ import org.springframework.web.filter.CorsFilter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * security config
+ * Spring Security 설정
  *
  * @author LEESEMIN
  */

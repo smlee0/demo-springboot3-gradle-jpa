@@ -11,6 +11,8 @@ import lombok.Setter;
 
 /**
  * error response
+ *
+ * @author LEESEMIN
  */
 @Getter
 @Setter
