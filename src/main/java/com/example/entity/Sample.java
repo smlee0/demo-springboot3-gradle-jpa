@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 샘플 엔티티 (테스트 및 참고용)
+ * 해당 엔티티 클래스는 테스트를 위해 제작되었습니다. 컬럼들의 규칙성이 없을 수도 있으므로 참고 자료로만 확인해주세요.
  *
  * @author LEESEMIN
  */
@@ -45,11 +46,15 @@ public class Sample extends BaseEntity {
 	@Comment("샘플 ID")
 	private Long id;
 
-	@Column(name = "code", nullable = false)
+	@Column(name = "name", nullable = false)
+	@Comment("이름")
+	private String name;
+
+	@Column(name = "title", nullable = false)
 	@Comment("제목")
 	private String title;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "contents", nullable = false)
 	@Comment("내용")
 	private String contents;
 
@@ -61,9 +66,9 @@ public class Sample extends BaseEntity {
 	@Comment("썸네일 이미지 원본 파일 명")
 	private String thumbImgOriginName;
 
-	@Column(name = "thumb_img_alt_text")
-	@Comment("썸네일 이미지 대체 텍스트")
-	private String thumbImgAltText;
+	// @Column(name = "thumb_img_alt_text")
+	// @Comment("썸네일 이미지 대체 텍스트")
+	// private String thumbImgAltText;
 
 	// @JsonBackReference
 	// @ManyToOne(fetch = FetchType.LAZY)

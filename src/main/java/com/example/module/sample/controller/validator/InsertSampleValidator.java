@@ -37,7 +37,7 @@ public class InsertSampleValidator implements Validator {
 		SampleRequestDto requestDto = (SampleRequestDto)target;
 
 		if (sampleRepository.existsByName(requestDto.getName())) {
-			errors.reject("name already exist", "이미 존재하는 토픽 이름입니다.");
+			errors.reject("name already exist", "이미 등록된 이름 입니다.");
 		}
 	}
 }

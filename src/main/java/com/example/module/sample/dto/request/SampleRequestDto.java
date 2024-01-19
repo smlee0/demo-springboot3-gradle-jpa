@@ -20,10 +20,12 @@ import lombok.Setter;
 public class SampleRequestDto {
 
 	private Long id;
-	@NotBlank(message = "샘플 명을 입력해 주세요.")
+	@NotBlank(message = "이름을 입력해 주세요.")
 	private String name;
-	@NotBlank(message = "샘플 코드를 입력해 주세요.")
-	private String code;
+	@NotBlank(message = "제목을 입력해 주세요.")
+	private String title;
+	@NotBlank(message = "내용을 입력해 주세요.")
+	private String contents;
 	private List<MultipartFile> files;
 
 }

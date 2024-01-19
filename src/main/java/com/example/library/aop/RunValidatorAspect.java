@@ -45,6 +45,7 @@ public class RunValidatorAspect {
 	 */
 	@Before("execution(* com.example.*.controller.*.*(..)) && @annotation(runBodyValidator)")
 	public void runValidatorAop(JoinPoint joinPoint, RunBodyValidator runBodyValidator) throws BindException {
+		log.info("[Aspect] runValidatorAop : {}", joinPoint.getSignature().toShortString());
 		MethodSignature signature = (MethodSignature)joinPoint.getSignature();
 		Method method = signature.getMethod();
 
@@ -81,6 +82,7 @@ public class RunValidatorAspect {
 	 */
 	@Before("execution(* com.example.*.controller.*.*(..)) && @annotation(runPathVariableValidator)")
 	public void runPathValidatorAop(JoinPoint joinPoint, RunPathVariableValidator runPathVariableValidator) {
+		log.info("[Aspect] runPathValidatorAop : {}", joinPoint.getSignature().toShortString());
 		MethodSignature signature = (MethodSignature)joinPoint.getSignature();
 		Method method = signature.getMethod();
 

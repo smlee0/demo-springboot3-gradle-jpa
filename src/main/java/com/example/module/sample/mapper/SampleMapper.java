@@ -19,6 +19,8 @@ public interface SampleMapper {
 	 * @param requestDto
 	 * @return
 	 */
+	// @Mapping(target = "thumbImgUploadPath", ignore = true)
+	// @Mapping(target = "thumbImgOriginName", ignore = true)
 	Sample toEntity(SampleRequestDto requestDto);
 
 	/**

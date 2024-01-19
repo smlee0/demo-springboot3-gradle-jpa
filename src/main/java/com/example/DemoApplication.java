@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import com.example.library.constant.ProfileType;
 
@@ -16,6 +17,7 @@ import jakarta.annotation.PostConstruct;
  *
  * @author LEESEMIN
  */
+@EnableAspectJAutoProxy
 @SpringBootApplication
 public class DemoApplication {
 

@@ -20,6 +20,9 @@ public class SampleResponseDto extends CommonFilter {
 
 	private Long id;
 	private String name;
-	private String code;
+	private String title;
+	private String contents;
+	private String thumbImgUploadPath;
+	private String thumbImgOriginName;
 
 }
