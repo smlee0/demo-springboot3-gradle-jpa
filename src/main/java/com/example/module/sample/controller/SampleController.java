@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.library.annotation.RunBodyValidator;
+import com.example.module.sample.controller.validator.DeleteSampleValidator;
 import com.example.module.sample.controller.validator.InsertSampleValidator;
+import com.example.module.sample.controller.validator.UpdateSampleValidator;
 import com.example.module.sample.dto.request.SampleRequestDto;
 import com.example.module.sample.dto.response.SampleResponseDto;
 import com.example.module.sample.service.SampleService;
@@ -63,7 +65,8 @@ public class SampleController {
 	 * @return
 	 */
 	@PutMapping("/api/v1/sample")
-	public ResponseEntity<?> update(SampleRequestDto requestDto) {
+	@RunBodyValidator(UpdateSampleValidator.class)
+	public ResponseEntity<?> update(@Validated SampleRequestDto requestDto) {
 		sampleService.updateSample(requestDto);
 
 		return ResponseEntity.ok().build();
@@ -75,7 +78,8 @@ public class SampleController {
 	 * @return
 	 */
 	@DeleteMapping("/api/v1/sample")
-	public ResponseEntity<?> delete(SampleRequestDto requestDto) {
+	@RunBodyValidator(DeleteSampleValidator.class)
+	public ResponseEntity<?> delete(@Validated SampleRequestDto requestDto) {
 		sampleService.deleteSample(requestDto);
 
 		return ResponseEntity.ok().build();
