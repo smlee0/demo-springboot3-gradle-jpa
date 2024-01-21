@@ -42,6 +42,7 @@ public class DemoApplication {
 	public static void setDefaultProfile(SpringApplication application) {
 		String profile = System.getProperty("spring.profiles.active");
 		if (StringUtils.isEmpty(profile)) {
+			System.setProperty("spring.profiles.active", ProfileType.LOCAL.toString());
 			application.setAdditionalProfiles(ProfileType.LOCAL.toString());
 		}
 	}
