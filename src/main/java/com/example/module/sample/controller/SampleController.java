@@ -14,6 +14,7 @@ import com.example.library.annotation.RunBodyValidator;
 import com.example.module.sample.controller.validator.DeleteSampleValidator;
 import com.example.module.sample.controller.validator.InsertSampleValidator;
 import com.example.module.sample.controller.validator.UpdateSampleValidator;
+import com.example.module.sample.dto.SampleDto;
 import com.example.module.sample.dto.request.SampleRequestDto;
 import com.example.module.sample.dto.response.SampleResponseDto;
 import com.example.module.sample.service.SampleService;
@@ -53,14 +54,14 @@ public class SampleController {
 	 */
 	@PostMapping("/api/v1/sample")
 	@RunBodyValidator(InsertSampleValidator.class)
-	public ResponseEntity<?> insert(@Validated SampleRequestDto requestDto) {
-		sampleService.insertSample(requestDto);
+	public ResponseEntity<?> insert(@Validated SampleDto.InsertRequestDto requestDto) {
+		SampleDto.InsertResponseDto responseDto = sampleService.insertSample(requestDto);
 
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(responseDto);
 	}
 
 	/**
-	 * 샘플 수정 액션
+	 * TODO 샘플 수정 액션
 	 *
 	 * @return
 	 */
@@ -73,7 +74,7 @@ public class SampleController {
 	}
 
 	/**
-	 * 샘플 삭제 액션
+	 * TODO 샘플 삭제 액션
 	 *
 	 * @return
 	 */

@@ -4,7 +4,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.example.library.annotation.TransactionalComponent;
-import com.example.module.sample.dto.request.SampleRequestDto;
+import com.example.module.sample.dto.SampleDto;
 import com.example.module.sample.repository.SampleRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class InsertSampleValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return SampleRequestDto.class.equals(clazz);
+		return SampleDto.InsertRequestDto.class.equals(clazz);
 	}
 
 	@Override
@@ -34,9 +34,10 @@ public class InsertSampleValidator implements Validator {
 			return;
 		}
 
-		SampleRequestDto requestDto = (SampleRequestDto)target;
+		SampleDto.InsertRequestDto requestDto = (SampleDto.InsertRequestDto)target;
 
-		if (sampleRepository.existsByName(requestDto.getName())) {
+		// Sealed 클래스를 통해 getter가 생성될 경우 getName이 아니라 name으로 가져올 수 있도록 변경됨
+		if (sampleRepository.existsByName(requestDto.name())) {
 			errors.reject("name already exist", "이미 등록된 이름 입니다.");
 		}
 	}

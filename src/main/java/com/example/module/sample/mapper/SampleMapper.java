@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.example.entity.Sample;
+import com.example.module.sample.dto.SampleDto;
 import com.example.module.sample.dto.request.SampleRequestDto;
 import com.example.module.sample.dto.response.SampleResponseDto;
 
@@ -38,4 +39,20 @@ public interface SampleMapper {
 	 * @return
 	 */
 	List<SampleResponseDto> toList(List<Sample> sampleList);
+
+	/**
+	 * 샘플 등록 엔티티 변환
+	 *
+	 * @param requestDto
+	 * @return
+	 */
+	Sample toInsertEntity(SampleDto.InsertRequestDto requestDto);
+
+	/**
+	 * 샘플 등록 DTO 변환
+	 *
+	 * @param sample
+	 * @return
+	 */
+	SampleDto.InsertResponseDto toInsertDto(Sample sample);
 }
