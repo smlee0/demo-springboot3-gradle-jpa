@@ -1,0 +1,22 @@
+##########################################################################
+##                  Application Settings - local (cloud)
+##########################################################################
+cloud:
+  aws:
+    credentials:
+      profile: #fakedata_dev
+      # S3 접근 USER 설정
+      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESSKEY}
+      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRETKEY}
+    region:
+      # S3 설정 확인
+      static: ap-northeast-2
+    s3:
+      bucket: #demo-dev-bucket
+      url: #https://{puuid}.cloudfront.net
+      role:
+        arn: #arn:aws:iam::428646110308:role/demo-dev-upload-s3-limited-role
+        session:
+          name: #demo-dev-upload-s3-limited-role
+    stack:
+      auto: false

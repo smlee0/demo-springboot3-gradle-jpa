@@ -1,0 +1,19 @@
+##########################################################################
+##                  Application Settings - develop (base)
+##########################################################################
+spring:
+
+  # 메일 설정
+  mail:
+    username: username@naver.com
+    password: password123
+    host: smtp.naver.com
+    port: 587
+
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+

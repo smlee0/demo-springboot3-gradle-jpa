@@ -36,11 +36,11 @@ public class AmazonS3Config {
 	@Bean
 	public AmazonS3Client amazonS3Client() {
 		log.info("[Bean] amazonS3");
-		String profile = System.getProperty("spring.profiles.active");
-		String roleARN = propertyUtil.get("cloud.role.arn");
-		String roleSessionName = propertyUtil.get("cloud.role.session.name");
-		String credentialsProfile = propertyUtil.get("cloud.credentials.profile");
-		String region = propertyUtil.get("cloud.aws.region.static");
+		final String profile = System.getProperty("spring.profiles.active");
+		final String roleARN = propertyUtil.get("cloud.role.arn");
+		final String roleSessionName = propertyUtil.get("cloud.role.session.name");
+		final String credentialsProfile = propertyUtil.get("cloud.credentials.profile");
+		final String region = propertyUtil.get("cloud.aws.region.static");
 
 		// 로컬 개발 환경 설정
 		if (!profile.equals(ProfileType.LOCAL.toString())) {

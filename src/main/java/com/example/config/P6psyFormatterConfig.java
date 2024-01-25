@@ -14,7 +14,7 @@ import jakarta.annotation.PostConstruct;
  */
 // @Profile("local")
 @Configuration//(proxyBeanMethods = false)
-class P6psyLogMessageConfig {
+class P6psyFormatterConfig {
 
 	@PostConstruct
 	public void setLogMessageFormat() {

@@ -15,9 +15,15 @@ server:
       enabled: false
 
 spring:
-  # 기본 설정 외 yml 파일 등록
-  #  config:
-  #    import: *.yml
+  # 폴더
+  config:
+    import:
+      - application-upload.yaml
+      - ${spring.profiles.active}/application-base.yaml
+      - ${spring.profiles.active}/application-cloud.yaml
+      - ${spring.profiles.active}/application-database.yaml
+      - ${spring.profiles.active}/application-log.yaml
+      - ${spring.profiles.active}/application-site.yaml
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

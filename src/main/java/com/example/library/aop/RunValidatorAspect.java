@@ -42,7 +42,7 @@ public class RunValidatorAspect {
 	 * @param runBodyValidator 어노테이션
 	 * @throws BindException 바인드 익셉션
 	 */
-	@Before("execution(* com.example.*.*.controller.*.*(..)) && @annotation(runBodyValidator)")
+	@Before("execution(* com.example.*.*.controller.*.*(..)) && @annotation(runBodyValidator)") // PointCut
 	public void runValidatorAop(JoinPoint joinPoint, RunBodyValidator runBodyValidator) throws BindException {
 		log.info("[Aspect] runValidatorAop : {}", joinPoint.getSignature().toShortString());
 		MethodSignature signature = (MethodSignature)joinPoint.getSignature();

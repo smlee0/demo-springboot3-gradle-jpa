@@ -1,0 +1,25 @@
+##########################################################################
+##                  Application Settings - local (database)
+##########################################################################
+spring:
+
+# 데이터베이스 연결 및 설정
+  datasource:
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    url: jdbc:mysql://localhost:3306/testdb?autoReconnect=true&autoReconnection=true&autoReconnectForPools=true&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    #    username: root
+    #    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./db/testdb;AUTO_SERVER=TRUE
+    #    url: jdbc:h2:tcp://localhost/~/testdb
+    username: sa
+    password:
+    tomcat:
+      test-while-idle: true
+      validation-query: SELECT 1
+
+  # H2 DB
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
