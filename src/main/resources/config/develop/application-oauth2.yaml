@@ -1,6 +1,3 @@
 ##########################################################################
-##                  Application Settings - develop (cloud)
+##                  Application Settings - local (oauth2)
 ##########################################################################
-demo:
-  pc-url: fakadata
-  mo-url: fakadata
