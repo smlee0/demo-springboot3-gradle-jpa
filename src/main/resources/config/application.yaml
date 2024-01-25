@@ -19,11 +19,12 @@ spring:
   config:
     import:
       - application-upload.yaml
-      - ${spring.profiles.active}/application-base.yaml
-      - ${spring.profiles.active}/application-cloud.yaml
-      - ${spring.profiles.active}/application-database.yaml
-      - ${spring.profiles.active}/application-log.yaml
-      - ${spring.profiles.active}/application-site.yaml
+      # `optional:*` 해당 파일이 존재하지 않을 경우 자동 예외 처리
+      - optional:${spring.profiles.active}/application-base.yaml
+      - optional:${spring.profiles.active}/application-cloud.yaml
+      - optional:${spring.profiles.active}/application-database.yaml
+      - optional:${spring.profiles.active}/application-log.yaml
+      - optional:${spring.profiles.active}/application-site.yaml
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
