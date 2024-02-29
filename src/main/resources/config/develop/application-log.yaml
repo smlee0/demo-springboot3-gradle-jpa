@@ -1,5 +1,5 @@
 ##########################################################################
-##                  Application Settings - local (log)
+##                  Application Settings - develop (log)
 ##########################################################################
 # 로그 설정
 logging:
@@ -7,7 +7,7 @@ logging:
     name: logs/default.log
   pattern:
     console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
-    file: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
+    file: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] kr%logger[%method:%line] - %msg%n"
   logback:
     rollingpolicy:
       file-name-pattern: "logs/default.%d{yyyy-MM-dd}.%i"

@@ -1,5 +1,5 @@
 ##########################################################################
-##                  Application Settings - local (cloud)
+##                  Application Settings - develop (cloud)
 ##########################################################################
 demo:
   pc-url: fakadata
