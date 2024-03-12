@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -51,19 +50,6 @@ public class SecurityConfig {
 	}
 
 	/**
-	 * WebSecurityCustomizer Bean 설정
-	 * security를 적용하지 않을 리소스 설정
-	 *
-	 * @return WebSecurity 이그노어 설정 값
-	 */
-	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-		return webSecurity -> webSecurity.ignoring()
-			// error endpoint를 열어줘야 함, favicon.ico 추가!
-			.requestMatchers("/favicon.ico");
-	}
-
-	/**
 	 * 시큐리티 필터 체인
 	 * Springboot3.x 이상 버전 : 체이닝 -> 람다식 방식으로 변경
 	 *
@@ -86,37 +72,31 @@ public class SecurityConfig {
 			.logout(AbstractHttpConfigurer::disable)
 
 			// 헤더 설정
-			.headers(configurer ->
-				configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+			.headers(configurer -> configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
 
 			// 세션 설정 (사용 안함)
-			.sessionManagement(configurer ->
-				configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
 			// 접근 권한 설정
-			.authorizeHttpRequests(request ->
-					request.requestMatchers(
-							// new AntPathRequestMatcher("/api/v1/login/**"),
-							new AntPathRequestMatcher("/api/v1/login/**")
-						).permitAll()
-						.anyRequest().permitAll()
-
-				// .requestMatchers(PathRequest.toH2Console()).permitAll()
-				// .requestMatchers("/", "/login/**").permitAll()
-				// .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole(Role.USER.name())
-				// .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
-				// .anyRequest().authenticated()
+			.authorizeHttpRequests(request -> request
+				.requestMatchers(
+					// new AntPathRequestMatcher("/"),
+					new AntPathRequestMatcher("/h2-console/**"),
+					new AntPathRequestMatcher("/api/v1/account/join"),
+					new AntPathRequestMatcher("/api/v1/account/login/**"),
+					new AntPathRequestMatcher("/api/v1/account/refresh"),
+					new AntPathRequestMatcher("/api/v1/account/logout")
+				).permitAll()
+				.anyRequest().authenticated()
 			)
 
 			// OAuth2 설정
 			// OAuth2 로그인 기능에 대한 여러 설정의 진입점
 			// OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
 			.oauth2Login(oauth2 -> oauth2
-				// .loginPage("/login").permitAll()
+				.loginPage("/login")
 				// OAuth2 로그인 URL
-				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/login/oauth2/authorization"))
-				// OAuth2 인증 후 Redirect Url
-				// .redirectionEndpoint(redirection -> redirection.baseUri("/api/v1/login/oauth2/callback/**"))
+				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/account/login/oauth2"))
 				// OAuth2 회원정보 가공 처리
 				.userInfoEndpoint(c -> c.userService(customOAuth2UserService))
 				// 로그인 성공 시 핸들러
