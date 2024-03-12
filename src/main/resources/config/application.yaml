@@ -25,6 +25,7 @@ spring:
       - optional:${spring.profiles.active}/application-database.yaml
       - optional:${spring.profiles.active}/application-log.yaml
       - optional:${spring.profiles.active}/application-site.yaml
+      - optional:${spring.profiles.active}/application-oauth2.yaml
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

@@ -9,19 +9,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 샘플 요청 DTO
- *
- * @author LEESEMIN
- */
 @Getter
 @Setter
 @Builder
-public class SampleRequestDto {
+public class SampleInsertRequestDto {
 
 	private Long id;
 
-	@NotBlank(message = "이름을 입력해 주세요.")
+	@NotBlank(message = "이름을 입력해 주세요.!@#$")
 	private String name;
 
 	@NotBlank(message = "제목을 입력해 주세요.")
@@ -31,5 +26,4 @@ public class SampleRequestDto {
 	private String contents;
 
 	private List<MultipartFile> files;
-
 }

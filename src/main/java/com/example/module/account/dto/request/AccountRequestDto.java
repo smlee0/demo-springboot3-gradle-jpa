@@ -1,4 +1,4 @@
-package com.example.module.sample.dto.request;
+package com.example.module.account.dto.request;
 
 import java.util.List;
 
@@ -17,19 +17,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class SampleRequestDto {
+public class AccountRequestDto {
 
 	private Long id;
-
 	@NotBlank(message = "이름을 입력해 주세요.")
 	private String name;
-
 	@NotBlank(message = "제목을 입력해 주세요.")
 	private String title;
-
 	@NotBlank(message = "내용을 입력해 주세요.")
 	private String contents;
-
 	private List<MultipartFile> files;
 
 }

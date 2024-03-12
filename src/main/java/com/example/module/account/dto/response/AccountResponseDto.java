@@ -1,6 +1,7 @@
-package com.example.module.sample.dto.response;
+package com.example.module.account.dto.response;
 
 import com.example.library.common.CommonFilter;
+import com.example.library.constant.AccountRoleType;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,18 +17,11 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-public class SampleResponseDto extends CommonFilter {
+public class AccountResponseDto extends CommonFilter {
 
 	private Long id;
-
 	private String name;
-
-	private String title;
-
-	private String contents;
-
-	private String thumbImgUploadPath;
-
-	private String thumbImgOriginName;
+	private String email;
+	private AccountRoleType accountRole;
 
 }

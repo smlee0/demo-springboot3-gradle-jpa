@@ -2,16 +2,25 @@ package com.example.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import com.example.library.security.MyAuthenticationFailureHandler;
+import com.example.library.security.MyAuthenticationSuccessHandler;
+import com.example.library.security.oauth2.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,10 +29,16 @@ import lombok.RequiredArgsConstructor;
  *
  * @author LEESEMIN
  */
-@EnableWebSecurity
-@Configuration
 @RequiredArgsConstructor
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
+
+	private final CustomOAuth2UserService customOAuth2UserService;
+	private final MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+	private final MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+	// private final JwtAuthFilter jwtAuthFilter;
 
 	/**
 	 * PasswordEncoder Bean 설정
@@ -33,6 +48,19 @@ public class SecurityConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	/**
+	 * WebSecurityCustomizer Bean 설정
+	 * security를 적용하지 않을 리소스 설정
+	 *
+	 * @return WebSecurity 이그노어 설정 값
+	 */
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return webSecurity -> webSecurity.ignoring()
+			// error endpoint를 열어줘야 함, favicon.ico 추가!
+			.requestMatchers("/favicon.ico");
 	}
 
 	/**
@@ -46,41 +74,70 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			// 로그인 폼 설정 (사용 안함)
-			.formLogin((formLoginConfig) ->
-				formLoginConfig.disable()
-			)
-
-			// csrf 설정 (사용 안함)
-			.csrf((csrfConfig) ->
-				csrfConfig.disable()
-			)
+			// csrf 비활성화 -> cookie를 사용하지 않으면 꺼도 된다. (cookie를 사용할 경우 httpOnly(XSS 방어), sameSite(CSRF 방어)로 방어해야 한다.)
+			.csrf(AbstractHttpConfigurer::disable)
+			// cors 비활성화 -> 프론트와 연결 시 따로 설정 필요
+			.cors(AbstractHttpConfigurer::disable)
+			// 기본 인증 로그인 비활성화
+			.httpBasic(AbstractHttpConfigurer::disable)
+			// 기본 login form 비활성화
+			.formLogin(AbstractHttpConfigurer::disable)
+			// 기본 logout 비활성화
+			.logout(AbstractHttpConfigurer::disable)
 
 			// 헤더 설정
-			.headers((headerConfig) ->
-				headerConfig.frameOptions(frameOptionsConfig ->
-					frameOptionsConfig.sameOrigin()
-				)
-			)
+			.headers(configurer ->
+				configurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
 
 			// 세션 설정 (사용 안함)
-			.sessionManagement((sessionManagementConfig) ->
-				sessionManagementConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			)
+			.sessionManagement(configurer ->
+				configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
 			// 접근 권한 설정
-			.authorizeHttpRequests((authorizeHttpRequestsConfig) ->
-				authorizeHttpRequestsConfig
-					// .requestMatchers(PathRequest.toH2Console()).permitAll()
-					// .requestMatchers("/", "/login/**").permitAll()
-					// .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole(Role.USER.name())
-					// .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
-					// .anyRequest().authenticated()
-					.anyRequest().permitAll()
+			.authorizeHttpRequests(request ->
+					request.requestMatchers(
+							// new AntPathRequestMatcher("/api/v1/login/**"),
+							new AntPathRequestMatcher("/api/v1/login/**")
+						).permitAll()
+						.anyRequest().permitAll()
+
+				// .requestMatchers(PathRequest.toH2Console()).permitAll()
+				// .requestMatchers("/", "/login/**").permitAll()
+				// .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole(Role.USER.name())
+				// .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole(Role.ADMIN.name())
+				// .anyRequest().authenticated()
 			)
 
-			// 필터 설정
+			// OAuth2 설정
+			// OAuth2 로그인 기능에 대한 여러 설정의 진입점
+			// OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
+			.oauth2Login(oauth2 -> oauth2
+				// .loginPage("/login").permitAll()
+				// OAuth2 로그인 URL
+				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/login/oauth2/authorization"))
+				// OAuth2 인증 후 Redirect Url
+				// .redirectionEndpoint(redirection -> redirection.baseUri("/api/v1/login/oauth2/callback/**"))
+				// OAuth2 회원정보 가공 처리
+				.userInfoEndpoint(c -> c.userService(customOAuth2UserService))
+				// 로그인 성공 시 핸들러
+				.successHandler(myAuthenticationSuccessHandler)
+				// 로그인 실패 시 핸들러
+				.failureHandler(myAuthenticationFailureHandler)
+			)
+
+			// JWT 관련 설정
+			// .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+			// .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass()) // 토큰 예외 핸들링
+
+			// CORS 필터 설정
 			.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
+
+		// 인증 예외 핸들링
+		// .exceptionHandling(exceptions -> exceptions
+		// 	.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+		// 	.accessDeniedHandler(new CustomAccessDeniedHandler()))
+
+		;
 
 		// 익셉션 핸들링 설정
 		// .exceptionHandling((exceptionConfig) ->
@@ -89,8 +146,6 @@ public class SecurityConfig {
 		// 		.accessDeniedHandler(new JwtAccessDeniedHandler())
 		// )
 		// .apply(new JwtConfigurerAdapter(tokenProvider))
-
-		;
 
 		return http.build();
 	}

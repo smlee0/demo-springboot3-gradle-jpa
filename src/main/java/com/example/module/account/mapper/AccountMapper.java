@@ -1,4 +1,4 @@
-package com.example.module.sample.mapper;
+package com.example.module.account.mapper;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import com.example.module.sample.dto.response.SampleInsertResponseDto;
 import com.example.module.sample.dto.response.SampleResponseDto;
 
 @Mapper
-public interface SampleMapper {
-	SampleMapper INSTANCE = Mappers.getMapper(SampleMapper.class);
+public interface AccountMapper {
+	AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
 	/**
 	 * SampleRequestDto -> Sample 변환

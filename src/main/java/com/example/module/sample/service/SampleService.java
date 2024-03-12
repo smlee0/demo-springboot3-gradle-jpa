@@ -2,8 +2,9 @@ package com.example.module.sample.service;
 
 import java.util.List;
 
-import com.example.module.sample.dto.SampleDto;
+import com.example.module.sample.dto.request.SampleInsertRequestDto;
 import com.example.module.sample.dto.request.SampleRequestDto;
+import com.example.module.sample.dto.response.SampleInsertResponseDto;
 import com.example.module.sample.dto.response.SampleResponseDto;
 
 /**
@@ -27,7 +28,7 @@ public interface SampleService {
 	 * @param requestDto
 	 * @return
 	 */
-	SampleDto.InsertResponseDto insertSample(SampleDto.InsertRequestDto requestDto);
+	SampleInsertResponseDto insertSample(SampleInsertRequestDto requestDto);
 
 	/**
 	 * 샘플 수정

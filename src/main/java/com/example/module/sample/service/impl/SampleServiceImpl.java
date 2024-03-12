@@ -3,8 +3,9 @@ package com.example.module.sample.service.impl;
 import java.util.List;
 
 import com.example.library.annotation.TransactionalService;
-import com.example.module.sample.dto.SampleDto;
+import com.example.module.sample.dto.request.SampleInsertRequestDto;
 import com.example.module.sample.dto.request.SampleRequestDto;
+import com.example.module.sample.dto.response.SampleInsertResponseDto;
 import com.example.module.sample.dto.response.SampleResponseDto;
 import com.example.module.sample.mapper.SampleMapper;
 import com.example.module.sample.repository.SampleRepository;
@@ -47,7 +48,7 @@ public class SampleServiceImpl implements SampleService {
 	 * @return
 	 */
 	@Override
-	public SampleDto.InsertResponseDto insertSample(SampleDto.InsertRequestDto requestDto) {
+	public SampleInsertResponseDto insertSample(SampleInsertRequestDto requestDto) {
 		//TODO AWS S3 파일 업로드 로직 추가 (공통 작업)
 		return SampleMapper.INSTANCE.toInsertDto(
 			sampleRepository.save(SampleMapper.INSTANCE.toInsertEntity(requestDto)));

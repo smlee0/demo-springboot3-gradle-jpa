@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = false)
 @ToString(callSuper = true)
-public class SampleResponseDto extends CommonFilter {
+public class SampleInsertResponseDto extends CommonFilter {
 
 	private Long id;
 
@@ -27,7 +27,7 @@ public class SampleResponseDto extends CommonFilter {
 	private String contents;
 
 	private String thumbImgUploadPath;
-
+	
 	private String thumbImgOriginName;
 
 }
