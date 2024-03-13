@@ -80,7 +80,6 @@ public class SecurityConfig {
 			// 접근 권한 설정
 			.authorizeHttpRequests(request -> request
 				.requestMatchers(
-					// new AntPathRequestMatcher("/"),
 					new AntPathRequestMatcher("/h2-console/**"),
 					new AntPathRequestMatcher("/api/v1/account/join"),
 					new AntPathRequestMatcher("/api/v1/account/login/**"),
@@ -94,7 +93,6 @@ public class SecurityConfig {
 			// OAuth2 로그인 기능에 대한 여러 설정의 진입점
 			// OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
 			.oauth2Login(oauth2 -> oauth2
-				.loginPage("/login")
 				// OAuth2 로그인 URL
 				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/account/login/oauth2"))
 				// OAuth2 회원정보 가공 처리

@@ -37,28 +37,36 @@ public class Account extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	@Comment("유저ID")
+	@Comment("유저 ID")
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(name = "username", nullable = false)
 	@Comment("유저명")
 	private String username;
 
-	@Column(nullable = false)
+	@Column(name = "nickname", nullable = false)
 	@Comment("닉네임")
 	private String nickname;
 
-	@Column(nullable = false)
+	@Column(name = "email", nullable = false)
 	@Comment("이메일")
 	private String email;
 
-	@Column(nullable = false)
+	@Column(name = "phone", nullable = false)
 	@Comment("휴대폰번호")
 	private String phone;
 
-	@Column(nullable = false)
+	@Column(name = "password", nullable = false)
 	@Comment("비밀번호")
 	private String password;
+
+	@Column(name = "thumb_img_upload_path")
+	@Comment("썸네일 이미지 업로드 경로")
+	private String thumbImgUploadPath;
+
+	@Column(name = "thumb_img_origin_name")
+	@Comment("썸네일 이미지 원본 파일 명")
+	private String thumbImgOriginName;
 
 	@Column(name = "password_modify_dt")
 	@Comment("비밀번호 변경 일자")
@@ -68,7 +76,7 @@ public class Account extends BaseEntity {
 	@Comment("비밀번호 만료 일자")
 	private LocalDateTime passwordExpiredDt;
 
-	@Column(name = "account_role")
+	@Column(name = "account_role", nullable = false)
 	@Comment("유저 권한")
 	@Enumerated(EnumType.STRING)
 	private AccountRoleType accountRole;

@@ -13,8 +13,8 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.example.module.account.dto.response.AccountResponseDto;
-import com.example.module.account.service.AccountService;
+import com.example.module.api.v1.account.dto.response.AccountResponseDto;
+import com.example.module.api.v1.account.service.AccountService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

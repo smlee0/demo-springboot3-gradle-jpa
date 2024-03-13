@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 글로벌 예외 처리
  *
- * @author LESEMIN
+ * @author LEESEMIN
  */
 @Slf4j
 @ControllerAdvice
