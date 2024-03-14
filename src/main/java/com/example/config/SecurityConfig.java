@@ -23,6 +23,8 @@ import com.example.library.security.CustomAccessDeniedHandler;
 import com.example.library.security.CustomAuthenticationEntryPoint;
 import com.example.library.security.MyAuthenticationFailureHandler;
 import com.example.library.security.MyAuthenticationSuccessHandler;
+import com.example.library.security.jwt.JwtAuthFilter;
+import com.example.library.security.jwt.JwtExceptionFilter;
 import com.example.library.security.oauth2.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,14 +36,15 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableMethodSecurity
 public class SecurityConfig {
 
 	private final CustomOAuth2UserService customOAuth2UserService;
 	private final MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 	private final MyAuthenticationFailureHandler myAuthenticationFailureHandler;
-	// private final JwtAuthFilter jwtAuthFilter;
+	private final JwtAuthFilter jwtAuthFilter;
+	private final JwtExceptionFilter jwtExceptionFilter;
 
 	/**
 	 * 인증 없이 접근 허용할 정적 리소스 경로
@@ -140,8 +143,10 @@ public class SecurityConfig {
 
 		return http
 			.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class) // CORS 필터 설정
-			// .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 관련 설정
-			// .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass()) // 토큰 예외 핸들링
+			.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // JWT 관련 설정
+			.addFilterBefore(jwtExceptionFilter, JwtAuthFilter.class) // 토큰 예외 핸들링
+			// .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+			// .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass())
 			.build();
 	}
 

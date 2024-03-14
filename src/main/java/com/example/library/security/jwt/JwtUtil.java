@@ -1,5 +1,6 @@
 package com.example.library.security.jwt;
 
+import java.util.Base64;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
@@ -8,16 +9,35 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * JWT 유틸 클래스
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class JwtUtil {
 	private final AccessTokenService tokenService;
-	private static final String SECRET_KEY = "ADJnzK4MPcHZ";
+	private static final String JWT_SECRET_KEY = "ADJnzK4MPcHZ";
+	private String secretKey;
 
+	/**
+	 * 초기화
+	 */
+	@PostConstruct
+	protected void init() {
+		secretKey = Base64.getEncoder().encodeToString(JWT_SECRET_KEY.getBytes());
+	}
+
+	/**
+	 * JWT Token 일괄 발급
+	 * @param email
+	 * @param role
+	 * @return
+	 */
 	public GeneratedToken generateToken(String email, String role) {
 		// refreshToken과 accessToken을 생성한다.
 		String refreshToken = generateRefreshToken(email, role);
@@ -28,9 +48,15 @@ public class JwtUtil {
 		return new GeneratedToken(accessToken, refreshToken);
 	}
 
+	/**
+	 * JWT Refresh Token 발급
+	 * @param email
+	 * @param role
+	 * @return
+	 */
 	public String generateRefreshToken(String email, String role) {
 		// 토큰의 유효 기간을 밀리초 단위로 설정.
-		long refreshPeriod = 1000L * 60L * 60L * 24L * 14; // 2주
+		long refreshPeriod = 1000L * 60L * 60L * 24L * 30; // 30일 유효 기간 설정
 
 		// 새로운 클레임 객체를 생성하고, 이메일과 역할(권한)을 셋팅
 		Claims claims = Jwts.claims().setSubject(email);
@@ -47,12 +73,18 @@ public class JwtUtil {
 			// 토큰의 만료일시를 설정한다.
 			.setExpiration(new Date(now.getTime() + refreshPeriod))
 			// 지정된 서명 알고리즘과 비밀 키를 사용하여 토큰을 서명한다.
-			.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+			.signWith(SignatureAlgorithm.HS256, secretKey)
 			.compact();
 	}
 
+	/**
+	 * JWT Refresh Token 발급
+	 * @param email
+	 * @param role
+	 * @return
+	 */
 	public String generateAccessToken(String email, String role) {
-		long tokenPeriod = 1000L * 60L * 30L; // 30분
+		long tokenPeriod = 1000L * 60L * 30L; // 30분 유효 기간 설정
 		Claims claims = Jwts.claims().setSubject(email);
 		claims.put("role", role);
 
@@ -66,15 +98,20 @@ public class JwtUtil {
 				// 토큰의 만료일시를 설정한다.
 				.setExpiration(new Date(now.getTime() + tokenPeriod))
 				// 지정된 서명 알고리즘과 비밀 키를 사용하여 토큰을 서명한다.
-				.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+				.signWith(SignatureAlgorithm.HS256, secretKey)
 				.compact();
 
 	}
 
+	/**
+	 * JWT Token 검증
+	 * @param token
+	 * @return
+	 */
 	public boolean verifyToken(String token) {
 		try {
 			Jws<Claims> claims = Jwts.parser()
-				.setSigningKey(SECRET_KEY) // 비밀키를 설정하여 파싱한다.
+				.setSigningKey(secretKey) // 비밀키를 설정하여 파싱한다.
 				.parseClaimsJws(token);  // 주어진 토큰을 파싱하여 Claims 객체를 얻는다.
 			// 토큰의 만료 시간과 현재 시간비교
 			return claims.getBody()
@@ -86,14 +123,22 @@ public class JwtUtil {
 		}
 	}
 
-	// 토큰에서 Email을 추출한다.
+	/**
+	 * 토큰에서 Email 추출
+	 * @param token
+	 * @return
+	 */
 	public String getUid(String token) {
-		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
 	}
 
-	// 토큰에서 ROLE(권한)만 추출한다.
+	/**
+	 * 토큰에서 ROLE(권한) 추출
+	 * @param token
+	 * @return
+	 */
 	public String getRole(String token) {
-		return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().get("role", String.class);
+		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("role", String.class);
 	}
 
 }
