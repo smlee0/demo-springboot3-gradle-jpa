@@ -57,6 +57,7 @@ public class SecurityConfig {
 	 * 인증 없이 접근 허용할 URL 경로
 	 */
 	private static final String[] PERMIT_URL_PATH = {
+		"/",
 		"/h2-console/**",
 		"/api/v1/account/join",
 		"/api/v1/account/login/**",
