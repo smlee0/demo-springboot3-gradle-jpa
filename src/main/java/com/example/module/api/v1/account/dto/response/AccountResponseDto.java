@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 샘플 응답 DTO
+ * 계정 응답 DTO
  *
  * @author LEESEMIN
  */
@@ -20,8 +20,12 @@ import lombok.ToString;
 public class AccountResponseDto extends CommonFilter {
 
 	private Long id;
-	private String name;
+	private String username;
+	private String nickname;
 	private String email;
+	private String phone;
+	private String thumbImgUploadPath;
+	private String thumbImgOriginName;
 	private AccountRoleType accountRole;
 
 }

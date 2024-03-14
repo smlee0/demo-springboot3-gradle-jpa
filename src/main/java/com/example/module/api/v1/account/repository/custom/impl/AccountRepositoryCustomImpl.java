@@ -6,7 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 샘플 레포지토리 커스텀 구현부
+ * 계정 레포지토리 커스텀 구현부
  *
  * @author LEESEMIN
  */

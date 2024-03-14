@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 샘플 요청 DTO
+ * 계정 요청 DTO
  *
  * @author LEESEMIN
  */

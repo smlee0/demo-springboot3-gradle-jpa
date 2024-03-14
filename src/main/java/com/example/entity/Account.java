@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
 
-import com.example.entity.common.BaseEntity;
+import com.example.entity.common.BaseDtEntity;
 import com.example.library.constant.AccountRoleType;
 
 import jakarta.persistence.Column;
@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "account", indexes = @Index(columnList = "email"))
-public class Account extends BaseEntity {
+public class Account extends BaseDtEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +56,7 @@ public class Account extends BaseEntity {
 	@Comment("휴대폰번호")
 	private String phone;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "password")
 	@Comment("비밀번호")
 	private String password;
 

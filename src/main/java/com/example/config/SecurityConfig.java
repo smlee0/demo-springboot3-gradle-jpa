@@ -1,5 +1,7 @@
 package com.example.config;
 
+import java.util.stream.Stream;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -17,6 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.example.library.security.CustomAccessDeniedHandler;
+import com.example.library.security.CustomAuthenticationEntryPoint;
 import com.example.library.security.MyAuthenticationFailureHandler;
 import com.example.library.security.MyAuthenticationSuccessHandler;
 import com.example.library.security.oauth2.CustomOAuth2UserService;
@@ -38,6 +42,27 @@ public class SecurityConfig {
 	private final MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
 	private final MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 	// private final JwtAuthFilter jwtAuthFilter;
+
+	/**
+	 * 인증 없이 접근 허용할 정적 리소스 경로
+	 */
+	private static final String[] PERMIT_STATIC_PATH = {
+		"/css/**",
+		"/js/**",
+		"/img/**",
+		"/favicon.*"
+	};
+
+	/**
+	 * 인증 없이 접근 허용할 URL 경로
+	 */
+	private static final String[] PERMIT_URL_PATH = {
+		"/h2-console/**",
+		"/api/v1/account/join",
+		"/api/v1/account/login/**",
+		"/api/v1/account/refresh",
+		"/api/v1/account/logout"
+	};
 
 	/**
 	 * PasswordEncoder Bean 설정
@@ -80,11 +105,16 @@ public class SecurityConfig {
 			// 접근 권한 설정
 			.authorizeHttpRequests(request -> request
 				.requestMatchers(
-					new AntPathRequestMatcher("/h2-console/**"),
-					new AntPathRequestMatcher("/api/v1/account/join"),
-					new AntPathRequestMatcher("/api/v1/account/login/**"),
-					new AntPathRequestMatcher("/api/v1/account/refresh"),
-					new AntPathRequestMatcher("/api/v1/account/logout")
+					Stream
+						.of(PERMIT_STATIC_PATH)
+						.map(AntPathRequestMatcher::antMatcher)
+						.toArray(AntPathRequestMatcher[]::new)
+				).permitAll()
+				.requestMatchers(
+					Stream
+						.of(PERMIT_URL_PATH)
+						.map(AntPathRequestMatcher::antMatcher)
+						.toArray(AntPathRequestMatcher[]::new)
 				).permitAll()
 				.anyRequest().authenticated()
 			)
@@ -93,39 +123,25 @@ public class SecurityConfig {
 			// OAuth2 로그인 기능에 대한 여러 설정의 진입점
 			// OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
 			.oauth2Login(oauth2 -> oauth2
-				// OAuth2 로그인 URL
-				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/account/login/oauth2"))
-				// OAuth2 회원정보 가공 처리
-				.userInfoEndpoint(c -> c.userService(customOAuth2UserService))
-				// 로그인 성공 시 핸들러
-				.successHandler(myAuthenticationSuccessHandler)
-				// 로그인 실패 시 핸들러
-				.failureHandler(myAuthenticationFailureHandler)
+				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/account/login/oauth2")) // OAuth2 로그인 URL
+				.userInfoEndpoint(c -> c.userService(customOAuth2UserService)) // OAuth2 회원정보 가공 처리
+				.successHandler(myAuthenticationSuccessHandler) // 로그인 성공 시 핸들러
+				.failureHandler(myAuthenticationFailureHandler) // 로그인 실패 시 핸들러
 			)
 
-			// JWT 관련 설정
-			// .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-			// .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass()) // 토큰 예외 핸들링
-
-			// CORS 필터 설정
-			.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class)
-
-		// 인증 예외 핸들링
-		// .exceptionHandling(exceptions -> exceptions
-		// 	.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-		// 	.accessDeniedHandler(new CustomAccessDeniedHandler()))
+			// 인증 예외 핸들링
+			.exceptionHandling(exceptions -> exceptions
+				.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+				.accessDeniedHandler(new CustomAccessDeniedHandler()))
+		// .apply(new JwtConfigurerAdapter(tokenProvider))
 
 		;
 
-		// 익셉션 핸들링 설정
-		// .exceptionHandling((exceptionConfig) ->
-		// 	exceptionConfig
-		// 		.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-		// 		.accessDeniedHandler(new JwtAccessDeniedHandler())
-		// )
-		// .apply(new JwtConfigurerAdapter(tokenProvider))
-
-		return http.build();
+		return http
+			.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class) // CORS 필터 설정
+			// .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // JWT 관련 설정
+			// .addFilterBefore(new TokenExceptionFilter(), tokenAuthenticationFilter.getClass()) // 토큰 예외 핸들링
+			.build();
 	}
 
 	// cors filter

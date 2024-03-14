@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.example.module.api.v1.account.dto.response.AccountResponseDto;
 
 /**
- * 샘플 서비스
+ * 계정 서비스
  *
  * @author LEESEMIN
  */
