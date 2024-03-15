@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.example.library.error.response.ErrorDto;
 import com.example.library.error.response.ValidationErrorDto;
+import com.example.library.exception.CustomPathParamException;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;

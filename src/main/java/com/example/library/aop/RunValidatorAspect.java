@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.library.annotation.RunBodyValidator;
 import com.example.library.annotation.RunPathVariableValidator;
-import com.example.library.error.CustomPathParamException;
+import com.example.library.exception.CustomPathParamException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

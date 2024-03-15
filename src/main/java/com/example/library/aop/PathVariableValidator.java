@@ -1,6 +1,6 @@
 package com.example.library.aop;
 
-import com.example.library.error.CustomPathParamException;
+import com.example.library.exception.CustomPathParamException;
 
 /**
  * AOP > PathVariable Validator 인터페이스

@@ -1,9 +1,13 @@
-package com.example.library.security.jwt;
+package com.example.library.security.jwt.util;
 
 import java.util.Base64;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
+
+import com.example.library.constant.CommonConstant;
+import com.example.library.security.jwt.dto.GeneratedToken;
+import com.example.library.security.jwt.service.JwtTokenService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -20,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 public class JwtUtil {
-	private final AccessTokenService tokenService;
+
+	private final JwtTokenService tokenService;
 	private static final String JWT_SECRET_KEY = "ADJnzK4MPcHZ";
 	private String secretKey;
 
@@ -55,8 +60,6 @@ public class JwtUtil {
 	 * @return
 	 */
 	public String generateRefreshToken(String email, String role) {
-		// 토큰의 유효 기간을 밀리초 단위로 설정.
-		long refreshPeriod = 1000L * 60L * 60L * 24L * 30; // 30일 유효 기간 설정
 
 		// 새로운 클레임 객체를 생성하고, 이메일과 역할(권한)을 셋팅
 		Claims claims = Jwts.claims().setSubject(email);
@@ -71,20 +74,20 @@ public class JwtUtil {
 			// 발행일자를 넣는다.
 			.setIssuedAt(now)
 			// 토큰의 만료일시를 설정한다.
-			.setExpiration(new Date(now.getTime() + refreshPeriod))
+			.setExpiration(new Date(System.currentTimeMillis() + CommonConstant.JWT_REFRESH_TOKEN_VALIDITY * 1000))
 			// 지정된 서명 알고리즘과 비밀 키를 사용하여 토큰을 서명한다.
 			.signWith(SignatureAlgorithm.HS256, secretKey)
 			.compact();
 	}
 
 	/**
-	 * JWT Refresh Token 발급
+	 * JWT Access Token 발급
 	 * @param email
 	 * @param role
 	 * @return
 	 */
 	public String generateAccessToken(String email, String role) {
-		long tokenPeriod = 1000L * 60L * 30L; // 30분 유효 기간 설정
+
 		Claims claims = Jwts.claims().setSubject(email);
 		claims.put("role", role);
 
@@ -96,7 +99,7 @@ public class JwtUtil {
 				// 발행일자를 넣는다.
 				.setIssuedAt(now)
 				// 토큰의 만료일시를 설정한다.
-				.setExpiration(new Date(now.getTime() + tokenPeriod))
+				.setExpiration(new Date(System.currentTimeMillis() + CommonConstant.JWT_ACCESS_TOKEN_VALIDITY * 1000))
 				// 지정된 서명 알고리즘과 비밀 키를 사용하여 토큰을 서명한다.
 				.signWith(SignatureAlgorithm.HS256, secretKey)
 				.compact();

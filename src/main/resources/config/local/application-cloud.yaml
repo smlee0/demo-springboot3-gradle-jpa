@@ -20,3 +20,10 @@ cloud:
           name: #demo-dev-upload-s3-limited-role
     stack:
       auto: false
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: test
+#    password: ${{REDIS_PASSWORD}}
+#    database:

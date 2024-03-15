@@ -23,8 +23,8 @@ import com.example.library.security.CustomAccessDeniedHandler;
 import com.example.library.security.CustomAuthenticationEntryPoint;
 import com.example.library.security.MyAuthenticationFailureHandler;
 import com.example.library.security.MyAuthenticationSuccessHandler;
-import com.example.library.security.jwt.JwtAuthFilter;
-import com.example.library.security.jwt.JwtExceptionFilter;
+import com.example.library.security.jwt.filter.JwtAuthFilter;
+import com.example.library.security.jwt.filter.JwtExceptionFilter;
 import com.example.library.security.oauth2.CustomOAuth2UserService;
 
 import lombok.RequiredArgsConstructor;

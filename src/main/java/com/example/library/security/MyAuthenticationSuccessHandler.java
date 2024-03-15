@@ -9,8 +9,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.example.library.security.jwt.GeneratedToken;
-import com.example.library.security.jwt.JwtUtil;
+import com.example.library.security.jwt.dto.GeneratedToken;
+import com.example.library.security.jwt.util.JwtUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
