@@ -36,7 +36,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 

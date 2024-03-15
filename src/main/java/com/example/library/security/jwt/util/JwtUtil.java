@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtUtil {
 
 	private final JwtTokenService tokenService;
-	private static final String JWT_SECRET_KEY = "ADJnzK4MPcHZ";
+	private static final String JWT_SECRET_KEY = "b07427c04cd8b5647a3f1979509ee2847130e3434e1acb7e93a4650b71d5bd5485870d36c1584ab46e0527b2eb9d0f4998151a386d69b48e906457ffdeb41896";
 	private String secretKey;
 
 	/**

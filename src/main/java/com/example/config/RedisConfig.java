@@ -52,6 +52,11 @@ public class RedisConfig {
 
 	/**
 	 * cache 설정
+	 * computePrefixWith: Cache Key prefix 설정
+	 * entryTtl: 캐시 만료 시간
+	 * disableCachingNullValues: 캐싱할 때 null 값을 허용하지 않음 (#result == null 과 함께 사용해야 함)
+	 * serializeKeysWith: Key 를 직렬화할 때 사용하는 규칙. 보통은 String 형태로 저장
+	 * serializeValuesWith: Value 를 직렬화할 때 사용하는 규칙. Jackson2 를 많이 사용함
 	 *
 	 * @return CacheManager
 	 */
