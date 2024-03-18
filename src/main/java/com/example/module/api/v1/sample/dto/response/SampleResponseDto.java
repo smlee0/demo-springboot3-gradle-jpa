@@ -1,6 +1,6 @@
 package com.example.module.api.v1.sample.dto.response;
 
-import com.example.library.common.dto.filter.CommonFilter;
+import com.example.library.common.CommonFilter;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

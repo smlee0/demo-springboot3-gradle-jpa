@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.entity.Account;
+import com.example.library.exception.JwtException;
 import com.example.library.security.jwt.util.JwtUtil;
 import com.example.module.api.v1.account.dto.response.AccountResponseDto;
 import com.example.module.api.v1.account.mapper.AccountMapper;
@@ -45,9 +46,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		}
 
 		// AccessToken을 검증하고, 만료되었을경우 예외를 발생시킨다.
-		// if (!jwtUtil.verifyToken(atc)) {
-		// 	throw new JwtException("Access Token 만료!");
-		// }
+		if (!jwtUtil.verifyToken(atc)) {
+			throw new JwtException("Access Token 만료!");
+		}
 
 		// AccessToken의 값이 있고, 유효한 경우에 진행한다.
 		if (jwtUtil.verifyToken(atc)) {

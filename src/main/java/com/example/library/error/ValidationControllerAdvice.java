@@ -36,7 +36,7 @@ public class ValidationControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ValidationErrorDto onConstraintValidationException(ConstraintViolationException e) {
-		log.info("[Exception] ConstraintViolationException");
+		log.info("[Bean] ConstraintViolationException");
 		ValidationErrorDto error = new ValidationErrorDto();
 		for (ConstraintViolation violation : e.getConstraintViolations()) {
 			error.getErrors().add(
@@ -54,7 +54,7 @@ public class ValidationControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ValidationErrorDto onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-		log.info("[Exception] MethodArgumentNotValidException");
+		log.info("[Bean] MethodArgumentNotValidException");
 		ValidationErrorDto error = new ValidationErrorDto();
 
 		// validator + 필드 에러
@@ -82,7 +82,7 @@ public class ValidationControllerAdvice {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	ValidationErrorDto bindValidException(BindException e) {
-		log.info("[Exception] BindException");
+		log.info("[Bean] BindException");
 		ValidationErrorDto error = new ValidationErrorDto();
 		for (ObjectError err : e.getBindingResult().getAllErrors()) {
 			error.getErrors().add(
@@ -99,7 +99,7 @@ public class ValidationControllerAdvice {
 	@ExceptionHandler(CustomPathParamException.class)
 	@ResponseBody
 	ValidationErrorDto customPathParamException(HttpServletResponse response, CustomPathParamException e) {
-		log.info("[Exception] CustomPathParamException");
+		log.info("[Bean] CustomPathParamException");
 		ValidationErrorDto error = new ValidationErrorDto();
 		error.getErrors().add(new ErrorDto(e.getCode(), e.getMessage()));
 		response.setStatus(e.getHttpStatus().value());

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.library.common.dto.CommonResponse;
 import com.example.library.security.jwt.dto.JwtToken;
 import com.example.library.security.jwt.repository.JwtTokenRepository;
 import com.example.library.security.jwt.service.JwtTokenService;
@@ -64,7 +63,6 @@ public class AccountController {
 	 */
 	@PostMapping("/api/v1/account/refresh")
 	public ResponseEntity<?> refresh(@RequestHeader("Authorization") final String accessToken) {
-		CommonResponse.CommonResponseBuilder builder = CommonResponse.builder();
 
 		// 액세스 토큰으로 Refresh 토큰 객체를 조회
 		Optional<JwtToken> jwtToken = jwtTokenRepository.findByAccessToken(accessToken);
@@ -79,8 +77,7 @@ public class AccountController {
 			resultToken.updateAccessToken(newAccessToken);
 			jwtTokenRepository.save(resultToken);
 			// 새로운 액세스 토큰을 반환해준다.
-			builder.data("accessToken", newAccessToken);
-			return ResponseEntity.ok().body(builder.build());
+			return ResponseEntity.ok().body(newAccessToken);
 		}
 
 		return ResponseEntity.badRequest().body("");
@@ -93,10 +90,9 @@ public class AccountController {
 	 */
 	@PostMapping("/api/v1/account/logout")
 	public ResponseEntity<?> logout(@RequestHeader("Authorization") final String accessToken) {
-		CommonResponse.CommonResponseBuilder builder = CommonResponse.builder();
 		// 엑세스 토큰으로 현재 Redis 정보 삭제
 		tokenService.removeRefreshToken(accessToken);
-		return ResponseEntity.ok().body(builder.build());
+		return ResponseEntity.ok().body("");
 	}
 
 	/**
