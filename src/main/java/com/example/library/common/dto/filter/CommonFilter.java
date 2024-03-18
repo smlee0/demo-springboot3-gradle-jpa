@@ -1,4 +1,4 @@
-package com.example.library.common;
+package com.example.library.common.dto.filter;
 
 import java.time.LocalDateTime;
 
