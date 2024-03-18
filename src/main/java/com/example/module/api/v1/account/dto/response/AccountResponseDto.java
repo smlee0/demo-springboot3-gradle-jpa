@@ -1,6 +1,6 @@
 package com.example.module.api.v1.account.dto.response;
 
-import com.example.library.common.CommonFilter;
+import com.example.library.common.dto.filter.CommonFilter;
 import com.example.library.constant.AccountRoleType;
 
 import lombok.EqualsAndHashCode;
