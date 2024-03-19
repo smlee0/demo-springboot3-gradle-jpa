@@ -128,6 +128,7 @@ public class SecurityConfig {
 			// OAuth2 로그인 성공 이후 사용자 정보를 가져올 때의 설정을 담당
 			.oauth2Login(oauth2 -> oauth2
 				.authorizationEndpoint(authorization -> authorization.baseUri("/api/v1/account/login/oauth2")) // OAuth2 로그인 URL
+				.redirectionEndpoint(redirect -> redirect.baseUri("/api/v1/account/oauth2/callback/*")) // OAuth2 리다이렉트 URL
 				.userInfoEndpoint(c -> c.userService(customOAuth2UserService)) // OAuth2 회원정보 가공 처리
 				.successHandler(myAuthenticationSuccessHandler) // 로그인 성공 시 핸들러
 				.failureHandler(myAuthenticationFailureHandler) // 로그인 실패 시 핸들러
@@ -135,8 +136,8 @@ public class SecurityConfig {
 
 			// 인증 예외 핸들링
 			.exceptionHandling(exceptions -> exceptions
-				.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-				.accessDeniedHandler(new CustomAccessDeniedHandler()))
+				.authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 401 예외 처리 (인증)
+				.accessDeniedHandler(new CustomAccessDeniedHandler())) // 403 예외 처리 (인가)
 		// .apply(new JwtConfigurerAdapter(tokenProvider))
 
 		;

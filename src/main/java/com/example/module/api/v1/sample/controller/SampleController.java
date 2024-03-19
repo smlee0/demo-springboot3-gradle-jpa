@@ -51,6 +51,9 @@ public class SampleController {
 		// builder.data("sampleList2", sampleService.selectSampleList(requestDto));
 		stopWatch.stop();
 
+		log.info("총 걸린시간(초): {}", stopWatch.getTotalTimeSeconds());
+		log.info(stopWatch.prettyPrint());
+
 		return ResponseEntity.ok().body(builder.build());
 	}
 

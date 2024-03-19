@@ -43,11 +43,11 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
 			.findFirst()
 			.orElseThrow(IllegalAccessError::new)
 			.getAuthority();
+		log.info(">>> role: {}", role);
 
-		log.debug(">>> email: {}", email);
-		log.debug(">>> isExist: {}", isExist);
-		log.debug(">>> provider: {}", provider);
-		log.debug(">>> role: {}", role);
+		oAuth2User.getAttributes().forEach((k, v) -> {
+			log.info("{}: {}", k, v);
+		});
 
 		// 회원이 존재할경우
 		if (isExist) {
