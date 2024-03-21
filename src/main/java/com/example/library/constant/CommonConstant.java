@@ -4,7 +4,6 @@ package com.example.library.constant;
  * 공통 상수 관리 클래스
  *
  * @author LEESEMIN
- *
  */
 public class CommonConstant {
 	/**

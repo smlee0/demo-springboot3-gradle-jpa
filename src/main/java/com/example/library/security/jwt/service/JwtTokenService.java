@@ -8,6 +8,11 @@ import com.example.library.security.jwt.repository.JwtTokenRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * JWT 토큰 서비스 (구현부 포함)
+ *
+ * @author LEESEMIN
+ */
 @Service
 @RequiredArgsConstructor
 public class JwtTokenService {

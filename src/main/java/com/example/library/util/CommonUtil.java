@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 공통 유틸 클래스
+ * 공통 유틸
  *
  * @author LEESEMIN
  */

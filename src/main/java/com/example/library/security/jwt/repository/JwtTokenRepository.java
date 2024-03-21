@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.example.library.security.jwt.dto.JwtToken;
 
+/**
+ * JWT 토큰 레포지토리
+ *
+ * @author LEESEMIN
+ */
 @Repository
 public interface JwtTokenRepository extends CrudRepository<JwtToken, String> {
 

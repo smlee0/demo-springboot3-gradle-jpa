@@ -2,6 +2,11 @@ package com.example.library.constant;
 
 import lombok.Getter;
 
+/**
+ * 계정 권한 타입 ENUM
+ *
+ * @author LEESEMIN
+ */
 @Getter
 public enum AccountRoleType {
 	/* product ctgry */

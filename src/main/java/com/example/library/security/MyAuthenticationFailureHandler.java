@@ -11,6 +11,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 로그인 인증 성공 시 처리 핸들러
+ *
+ * @author LEESEMIN
+ */
 @Component
 @Slf4j
 public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {

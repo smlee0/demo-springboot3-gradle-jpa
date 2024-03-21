@@ -18,6 +18,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 로그인 인증 실패 시 처리 핸들러
+ *
+ * @author LEESEMIN
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

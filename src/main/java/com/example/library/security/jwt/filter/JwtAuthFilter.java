@@ -24,6 +24,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * JWT 토큰 유효성 체크 필터<br>
+ * Spring Security 동작 전 필터 처리
+ *
+ * @author LEESEMIN
+ */
 @RequiredArgsConstructor
 @Slf4j
 @Component

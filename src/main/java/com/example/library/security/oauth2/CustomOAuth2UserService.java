@@ -19,6 +19,11 @@ import com.example.module.api.v1.account.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * OAuth2 커스텀 서비스 (구현부 포함)
+ *
+ * @author LEESEMIN
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor

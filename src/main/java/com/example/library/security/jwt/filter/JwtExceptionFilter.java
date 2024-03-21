@@ -20,8 +20,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-@Component
+/**
+ * JWT 토큰 예외 처리 필터<br>
+ * Spring Security 동작 전 필터 처리
+ *
+ * @author LEESEMIN
+ */
 @RequiredArgsConstructor
+@Component
 public class JwtExceptionFilter extends OncePerRequestFilter {
 
 	private final ObjectMapper objectMapper;

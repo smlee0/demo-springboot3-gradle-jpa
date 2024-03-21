@@ -43,6 +43,7 @@ public class AmazonS3Config {
 		final String region = propertyUtil.get("cloud.aws.region.static");
 
 		// 로컬 개발 환경 설정
+		//TODO AWS 세팅 후 로컬 환경 적용 후 "!" 제거
 		if (!profile.equals(ProfileType.LOCAL.toString())) {
 			AWSSecurityTokenService stsClient = AWSSecurityTokenServiceClientBuilder.standard()
 				.withCredentials(new ProfileCredentialsProvider(credentialsProfile)).withRegion(region).build();

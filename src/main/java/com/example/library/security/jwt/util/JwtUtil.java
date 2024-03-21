@@ -18,7 +18,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * JWT 유틸 클래스
+ * JWT 유틸
+ *
+ * @author LEESEMIN
  */
 @Slf4j
 @Service
