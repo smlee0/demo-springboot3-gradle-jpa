@@ -19,6 +19,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @RedisHash(value = "jwtToken", timeToLive = CommonConstant.JWT_REFRESH_TOKEN_VALIDITY)
+// @RedisHash(value = "jwtToken", timeToLive = 10)
 public class JwtToken implements Serializable {
 
 	@Id
