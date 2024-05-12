@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 // @DynamicUpdate
 
 /**
- * 샘플 엔티티 (테스트 및 참고용)
+ * 샘플 엔티티 (테스트 및 참고용)\n
  * 해당 엔티티 클래스는 테스트를 위해 제작되었습니다. 컬럼들의 규칙성이 없을 수도 있으므로 참고 자료로만 확인해주세요.
  *
  * @author LEESEMIN
